@@ -1,0 +1,48 @@
+<app-navbar></app-navbar>
+
+<div class="container mt-5 pt-5">
+  <button (click)="openModal()" class="btn btn-primary mb-3 float-right">
+    Create Profesor
+  </button>
+  <div *ngIf="profesors.length > 0" class="table-responsive">
+    <table class="table table-striped table-light text-center">
+      <thead class="thead-dark">
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>LastName</th>
+          <th>Email</th>
+          <th *ngIf="profesor.tutor.length > 0">Tutor Asignado</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let profesor of profesors; index as i">
+            <th>{{ i + 1 }}</th>
+            <td>{{ profesor.name }}</td>
+            <td>{{ profesor.lastname }}</td>
+            <td>{{ profesor.email }}</td>
+            <td *ngIf="profesor.tutor.length > 0"><p *ngFor="let tutor of profesor.tutor; index as i">{{ tutor.lastname }}</p></td>
+            <td>
+              <button (click)="openModal(profesor)" class="btn btn-warning">
+                Edit
+              </button>
+            </td>
+            <td>
+              <button (click)="deleteprofesor(profesor.id)" class="btn btn-danger">
+                Delete
+              </button>
+            </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<app-profesor-crud
+  [showModal]="showModal"
+  [profesor]="profesor"
+  (close)="closeModal($event)"
+  (newProfesor)="updateProfesor($event)"
+></app-profesor-crud>

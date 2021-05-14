@@ -1,0 +1,45 @@
+<div class="container">
+  <div class="card">
+    <div class="card-body">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input
+            class="form-control"
+            type="email"
+            placeholder="Email"
+            id="email"
+            formControlName="email"
+          />
+        </div>
+        <div *ngIf="submitted && form.invalid">
+          <div *ngFor="let error of errorMessages.email">
+            <div *ngIf="f.email.hasError(error.type)">
+              <small>{{ error.message }}</small>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input
+            class="form-control"
+            type="password"
+            placeholder="Password"
+            id="password"
+            formControlName="password"
+          />
+        </div>
+        <div *ngIf="submitted && form.invalid">
+          <div *ngFor="let error of errorMessages.password">
+            <div *ngIf="f.password.hasError(error.type)">
+              <small>{{ error.message }}</small>
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg btn-block">
+          Login
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

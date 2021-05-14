@@ -1,0 +1,145 @@
+<div class="myContainer" [class.myContainer]="!showModal">
+    <div class="modal mt-5" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="modal-header bg-dark text-light">
+              <h5 class="modal-title">Crear Tutor</h5>
+              <button
+                type="button"
+                class="close text-light"
+                data-dismiss="modal"
+                aria-label="Close"
+                (click)="closeModal()"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+              <div>
+                <input
+                  class="form-control mt-3"
+                  type="text"
+                  placeholder="Name"
+                  formControlName="name"
+                  [(ngModel)]="tutor.name"
+                />
+              </div>
+              <div *ngIf="submitted && form.invalid">
+                <div *ngFor="let error of errorMessages.name">
+                  <div *ngIf="f.name.hasError(error.type)">
+                    <small class="text-danger">{{ error.message }}</small>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <input
+                  class="form-control mt-3"
+                  type="text"
+                  placeholder="lastname"
+                  formControlName="lastname"
+                  [(ngModel)]="tutor.lastname"
+                />
+              </div>
+              <div *ngIf="submitted && form.invalid">
+                <div *ngFor="let error of errorMessages.lastname">
+                  <div *ngIf="f.lastname.hasError(error.type)">
+                    <small class="text-danger">{{ error.message }}</small>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <input
+                  class="form-control mt-3"
+                  type="email"
+                  placeholder="Email"
+                  formControlName="email"
+                  [(ngModel)]="tutor.email"
+                />
+              </div>
+              <div *ngIf="submitted && form.invalid">
+                <div *ngFor="let error of errorMessages.email">
+                  <div *ngIf="f.email.hasError(error.type)">
+                    <small class="text-danger">{{ error.message }}</small>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="mt-3">Rol: <span *ngIf="tutor.role" class="badge badge-dark">{{tutor.role}}</span></label>
+                <select class="form-control" formControlName="role">
+                  <option *ngFor="let role of roles" [value]="role">
+                    {{ role }}
+                  </option>
+              </select>
+                <div *ngIf="submitted && form.invalid">
+                  <div *ngFor="let error of errorMessages.role">
+                    <div *ngIf="f.role.hasError(error.type)">
+                      <small class="text-danger">{{ error.message }}</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="">Profesor Asignado: </label>
+                <select multiple
+                  class="form-control"
+                  formControlName="profesor"
+                >
+                <option value="0">Ninguno</option>
+                  <option
+                    *ngFor="let profesor of profesors"
+                    [value]="profesor.id"
+                  >
+                  {{ profesor.name}} - {{ profesor.lastname }}
+                  </option>
+                </select>
+                <div *ngIf="submitted && form.invalid">
+                  <div *ngFor="let error of errorMessages.profesor">
+                    <div *ngIf="f.profesor.hasError(error.type)">
+                      <small class="text-danger">{{ error.message }}</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="">Alumno Asignado: </label>
+                <select multiple
+                  class="form-control"
+                  formControlName="alumno"
+                >
+                <option value="0">Ninguno</option>
+                  <option
+                    *ngFor="let alumno of alumnos"
+                    [value]="alumno.id"
+                  >
+                  {{ alumno.name}} - {{ alumno.lastname }}
+                  </option>
+                </select>
+                <div *ngIf="submitted && form.invalid">
+                  <div *ngFor="let error of errorMessages.alumno">
+                    <div *ngIf="f.alumno.hasError(error.type)">
+                      <small class="text-danger">{{ error.message }}</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer bg-dark text-light mt-3">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-dismiss="modal"
+                  (click)="closeModal()"
+                >
+                  Close
+                </button>
+                <button type="submit" class="btn btn-primary">
+                  Save changes
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,48 @@
+<app-navbar></app-navbar>
+
+<div class="container mt-5 pt-5">
+  <button (click)="openModal()" class="btn btn-primary mb-3 float-right">
+    Create alumno
+  </button>
+  <div *ngIf="alumnos.length > 0" class="table-responsive">
+    <table class="table table-striped table-light text-center">
+      <thead class="thead-dark">
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>LastName</th>
+          <th>Email</th>
+          <th>Tutor Asignado</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let alumno of alumnos; index as i">
+            <th>{{ i + 1 }}</th>
+            <td>{{ alumno.name }}</td>
+            <td>{{ alumno.lastname }}</td>
+            <td>{{ alumno.email }}</td>
+            <td>{{ alumno.tutor.lastname}}</td>
+            <td>
+              <button (click)="openModal(alumno)" class="btn btn-warning">
+                Edit
+              </button>
+            </td>
+            <td>
+              <button (click)="deletealumno(alumno.id)" class="btn btn-danger">
+                Delete
+              </button>
+            </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<app-alumno-crud
+  [showModal]="showModal"
+  [alumno]="alumno"
+  (close)="closeModal($event)"
+  (newAlumno)="updateAlumno($event)"
+></app-alumno-crud>

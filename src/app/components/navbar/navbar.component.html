@@ -1,0 +1,26 @@
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <a class="navbar-brand" routerLink="/home" routerLinkActive="active">EscuelasSalesianas</a>
+     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+       <span class="navbar-toggler-icon"></span>
+     </button>
+     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+       <ul class="navbar-nav mr-auto">
+         <li class="nav-item">
+           <a class="nav-link" routerLink="/home" routerLinkActive="active">Inicio</a>
+         </li>
+           <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Administracion
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item"  routerLink="/Profesor">Profesor</a>
+              <a class="dropdown-item"  routerLink="/Tutor">Tutor</a>
+              <a class="dropdown-item" routerLink="/Alumno">Alumno</a>
+              <a class="dropdown-item" href="#">Asignatura</a>
+            </div>
+          </li>
+       </ul>
+         <button (click)="logout()" class="btn btn-outline-danger my-2 my-sm-0" type="button">Logout</button>
+     </div>
+   </nav>
+ 
