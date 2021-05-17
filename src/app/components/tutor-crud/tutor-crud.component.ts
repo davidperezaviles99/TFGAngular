@@ -30,19 +30,7 @@ export class TutorCrudComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm();
-    this.getProfesorList();
     this.getAlumnoList();
-  }
-
-  getProfesorList(){
-    this._usersService.getProfesorList().subscribe(
-      (resp) => {
-        this.profesors = resp;
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
   }
 
   getAlumnoList(){
@@ -77,26 +65,17 @@ export class TutorCrudComponent implements OnInit {
   }
 
   register(values: any) {
-    const profesors: IProfesor[] = [];
-    const alumnos: IAlumno[] = [];
 
-    for (const profesorid of values.profesor) {
-     profesors.push(this.profesors.find((l) => l.id == profesorid))
-    }
-    values.profesor = profesors;
+    // const alumnos: IAlumno[] = [];
 
-    for (const alumnoid of values.alumno) {
-      alumnos.push(this.alumnos.find((l) => l.id == alumnoid))
-     }
-     values.alumno = alumnos;
-    
-    if(values.profesor == 0){
-      delete values.profesor
-    }
+    // for (const alumnoid of values.alumno) {
+    //   alumnos.push(this.alumnos.find((l) => l.id == alumnoid))
+    //  }
+    //  values.alumno = alumnos;
 
-    if(values.alumno == 0){
-      delete values.alumno
-    }
+    // if(values.alumno == 0){
+    //   delete values.alumno
+    // }
 
     const tutorData: ITutor = values;
 
@@ -113,8 +92,7 @@ export class TutorCrudComponent implements OnInit {
 
   update(values: any) {
 
-    values.profesor = this.profesors.find((l) => l.id == values.profesor);
-    values.alumno = this.alumnos.find((l) => l.id == values.alumno);
+    // values.alumno = this.alumnos.find((l) => l.id == values.alumno);
 
     const { password, ...fields } = values;
 
@@ -160,8 +138,6 @@ export class TutorCrudComponent implements OnInit {
           Validators.pattern(/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S*$/),
         ],
       ],
-      profesor: ['', [Validators.required]],
-      alumno: ['', [Validators.required]],
     });
   }
 
@@ -193,8 +169,7 @@ export class TutorCrudComponent implements OnInit {
           'Password must contain at least one lowercase letter, one uppercase letter, and one number',
       },
     ],
-    alumno: [{ type: 'required', message: 'Choose one' }],
-    profesor: [{ type: 'required', message: 'Choose one' }],
+    //alumno: [{ type: 'required', message: 'Choose one' }],
   };
 
 }

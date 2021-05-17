@@ -28,18 +28,6 @@ export class ProfesorCrudComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm();
-    this.getTutorList();
-  }
-
-  getTutorList(){
-    this._usersService.getTutorList().subscribe(
-      (resp) => {
-        this.tutors = resp;
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
   }
 
   closeModal() {
@@ -63,16 +51,6 @@ export class ProfesorCrudComponent implements OnInit {
   }
 
   register(values: any) {
-    const tutors: ITutor[] = [];
-   
-    for (const tutorid of values.tutor) {
-     tutors.push(this.tutors.find((l) => l.id == tutorid))
-    }
-    values.tutor = tutors;
-    
-    if(values.tutor == 0){
-      delete values.tutor
-    }
 
     const profesorData: IProfesor = values;
 
@@ -88,8 +66,6 @@ export class ProfesorCrudComponent implements OnInit {
   }
 
   update(values: any) {
-
-    values.tutor = this.tutors.find((l) => l.id == values.tutor);
 
     const { password, ...fields } = values;
 
@@ -135,7 +111,6 @@ export class ProfesorCrudComponent implements OnInit {
           Validators.pattern(/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S*$/),
         ],
       ],
-      tutor: ['', [Validators.required]],
     });
   }
 
@@ -167,7 +142,6 @@ export class ProfesorCrudComponent implements OnInit {
           'Password must contain at least one lowercase letter, one uppercase letter, and one number',
       },
     ],
-    tutor: [{ type: 'required', message: 'Choose one' }],
   };
 
 }

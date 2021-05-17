@@ -79,50 +79,6 @@
                   </div>
                 </div>
               </div>
-              <div class="form-group">
-                <label class="">Profesor Asignado: </label>
-                <select multiple
-                  class="form-control"
-                  formControlName="profesor"
-                >
-                <option value="0">Ninguno</option>
-                  <option
-                    *ngFor="let profesor of profesors"
-                    [value]="profesor.id"
-                  >
-                  {{ profesor.name}} - {{ profesor.lastname }}
-                  </option>
-                </select>
-                <div *ngIf="submitted && form.invalid">
-                  <div *ngFor="let error of errorMessages.profesor">
-                    <div *ngIf="f.profesor.hasError(error.type)">
-                      <small class="text-danger">{{ error.message }}</small>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="">Alumno Asignado: </label>
-                <select multiple
-                  class="form-control"
-                  formControlName="alumno"
-                >
-                <option value="0">Ninguno</option>
-                  <option
-                    *ngFor="let alumno of alumnos"
-                    [value]="alumno.id"
-                  >
-                  {{ alumno.name}} - {{ alumno.lastname }}
-                  </option>
-                </select>
-                <div *ngIf="submitted && form.invalid">
-                  <div *ngFor="let error of errorMessages.alumno">
-                    <div *ngIf="f.alumno.hasError(error.type)">
-                      <small class="text-danger">{{ error.message }}</small>
-                    </div>
-                  </div>
-                </div>
-              </div>
               <div class="modal-footer bg-dark text-light mt-3">
                 <button
                   type="button"

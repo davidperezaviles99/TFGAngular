@@ -12,7 +12,7 @@
           <th>Name</th>
           <th>LastName</th>
           <th>Email</th>
-          <th *ngIf="profesor.tutor.length > 0">Tutor Asignado</th>
+          <th>Tutores</th>
           <th>Edit</th>
           <th>Delete</th>
         </tr>
@@ -23,7 +23,9 @@
             <td>{{ profesor.name }}</td>
             <td>{{ profesor.lastname }}</td>
             <td>{{ profesor.email }}</td>
-            <td *ngIf="profesor.tutor.length > 0"><p *ngFor="let tutor of profesor.tutor; index as i">{{ tutor.lastname }}</p></td>
+            <td>
+              <button (click)="opentutorModal(profesor)" class="btn btn-success">Tutores</button>
+            </td>
             <td>
               <button (click)="openModal(profesor)" class="btn btn-warning">
                 Edit
@@ -46,3 +48,10 @@
   (close)="closeModal($event)"
   (newProfesor)="updateProfesor($event)"
 ></app-profesor-crud>
+
+<app-tutor-modal
+  [showModal]="tutorModal"
+  [profesorTutor]="profesorTutors"
+  [profesor]="profesor"
+  (close)="closeTutorModal($event)"
+></app-tutor-modal>

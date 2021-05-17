@@ -79,28 +79,6 @@
                   </div>
                 </div>
               </div>
-              <div class="form-group">
-                <label class="">Tutor Asignado: </label>
-                <select multiple
-                  class="form-control"
-                  formControlName="tutor"
-                >
-                <option value="0">Ninguno</option>
-                  <option
-                    *ngFor="let tutor of tutors"
-                    [value]="tutor.id"
-                  >
-                  {{ tutor.name}} - {{ tutor.lastname }}
-                  </option>
-                </select>
-                <div *ngIf="submitted && form.invalid">
-                  <div *ngFor="let error of errorMessages.tutor">
-                    <div *ngIf="f.tutor.hasError(error.type)">
-                      <small class="text-danger">{{ error.message }}</small>
-                    </div>
-                  </div>
-                </div>
-              </div>
               <div class="modal-footer bg-dark text-light mt-3">
                 <button
                   type="button"

@@ -63,8 +63,6 @@ export class AlumnoCrudComponent implements OnInit {
   }
 
   register(values: any) {
-    
-    values.tutor = this.tutors.find((l) => l.id == values.tutor);
 
     const alumnoData: IAlumno = values;
 
@@ -80,8 +78,6 @@ export class AlumnoCrudComponent implements OnInit {
   }
 
   update(values: any) {
-
-    values.tutor = this.tutors.find((l) => l.id == values.tutor);
 
     const { password, ...fields } = values;
 

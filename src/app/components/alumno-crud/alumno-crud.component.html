@@ -80,7 +80,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="">Tutor Asignado: </label>
+                <label class="">Tutor Asignado:  <span *ngIf="alumno.tutor.lastname" class="badge badge-dark">{{alumno.tutor.lastname}}</span> </label>
                 <select
                   class="form-control"
                   formControlName="tutor"

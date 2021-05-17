@@ -1,6 +1,7 @@
-import { dashCaseToCamelCase } from '@angular/compiler/src/util';
 import { Component, OnInit } from '@angular/core';
-import { IProfesor } from 'src/app/interfaces/interfaces';
+import { IProfesor, IProfesorTutor } from 'src/app/interfaces/interfaces';
+import { Profesor } from 'src/app/models/models';
+import { ProfesorTutorService } from 'src/app/services/profesor-tutor.service';
 import { UsersService } from 'src/app/services/users.service';
 
 @Component({
@@ -10,19 +11,14 @@ import { UsersService } from 'src/app/services/users.service';
 })
 export class ProfesorComponent implements OnInit {
 public showModal = false;
+public tutorModal = false;
 
 public profesors: IProfesor[] = [];
+public profesorTutors: IProfesorTutor[] = [];
 
-public profesor: IProfesor = {
-  id: null,
-  name: null,
-  lastname: null,
-  email: null,
-  role: null,
-  tutor: []
-}
+public profesor = new Profesor();
 
-  constructor(public _usersService: UsersService) { }
+  constructor(public _usersService: UsersService, public _profesorTutorService: ProfesorTutorService) { }
 
   ngOnInit(): void {
     this.getProfesorList()
@@ -40,23 +36,36 @@ public profesor: IProfesor = {
   }
 
   openModal(profesor?: IProfesor){
-    if(this.profesor){
-      this.profesor = JSON.parse(JSON.stringify(this.profesor))
+    if(profesor){
+      this.profesor = JSON.parse(JSON.stringify(profesor))
     }
     this.showModal = true;
   }
 
   closeModal(showModal: boolean) {
-    this.profesor = {
-      id: null,
-      name: null,
-    lastname: null,
-    email: null,
-    role: null,
-    tutor: [],
-    }
+    this.profesor = new Profesor();
     this.showModal = showModal;
   }
+
+  opentutorModal(profesor: IProfesor){
+    this.profesor.id = profesor.id
+    this.getProfesorTutors(profesor.id);
+    this.tutorModal = true;
+  }
+
+  getProfesorTutors(profesor: number){
+    this._profesorTutorService.getProfesorByID(profesor).subscribe(resp => {
+      this.profesorTutors = resp
+    }, err => {
+      console.log(err)
+    })
+  }
+
+  closeTutorModal(showModal: boolean){
+    this.profesor = new Profesor()
+      this.tutorModal = showModal;
+  }
+  
 
   updateProfesor(tempProfesor: IProfesor) {
     const index = this.profesors.findIndex(o => o.id == tempProfesor.id)
@@ -69,10 +78,13 @@ public profesor: IProfesor = {
   }
 
   deleteprofesor(id: number) {
-    this._usersService.deleteP(id).subscribe(resp => {
-      this.updateProfesor(resp)
-    }, err => {
-      console.log(err)
-    })
+    this._usersService.deleteP(id).subscribe(
+      () => {
+        this.getProfesorList();
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 }

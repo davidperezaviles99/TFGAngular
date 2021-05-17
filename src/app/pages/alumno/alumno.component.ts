@@ -1,6 +1,7 @@
 import { NULL_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { IAlumno, ITutor } from 'src/app/interfaces/interfaces';
+import { Alumno } from 'src/app/models/models';
 import { UsersService } from 'src/app/services/users.service';
 
 @Component({
@@ -13,14 +14,7 @@ export class AlumnoComponent implements OnInit {
 
   public alumnos: IAlumno[] = [];
 
-  public alumno: IAlumno = {
-    id: null,
-    name: null,
-    lastname: null,
-    email: null,
-    role: null,
-    tutor: null
-  }
+  public alumno = new Alumno();
 
   constructor(public _usersService: UsersService) { }
 
@@ -40,21 +34,14 @@ export class AlumnoComponent implements OnInit {
   }
 
   openModal(alumno?: IAlumno){
-    if(this.alumno){
-      this.alumno = JSON.parse(JSON.stringify(this.alumno))
+    if(alumno){
+      this.alumno = JSON.parse(JSON.stringify(alumno))
     }
     this.showModal = true;
   }
 
   closeModal(showModal: boolean) {
-    this.alumno = {
-      id: null,
-      name: null,
-      lastname: null,
-      email: null,
-      role: null,
-      tutor: null,
-    }
+    this.alumno = new Alumno();
     this.showModal = showModal;
   }
 
@@ -69,10 +56,13 @@ export class AlumnoComponent implements OnInit {
   }
 
   deletealumno(id: number) {
-    this._usersService.deleteA(id).subscribe(resp => {
-      this.updateAlumno(resp)
-    }, err => {
-      console.log(err)
-    })
+    this._usersService.deleteA(id).subscribe(
+      () => {
+        this.getAlumnoList();
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 }

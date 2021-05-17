@@ -1,0 +1,70 @@
+<div class="myContainer" [class.myContainer]="!showModal">
+    <div class="modal mt-5" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="modal-header bg-dark text-light">
+              <h5 class="modal-title">Asignar Profesor</h5>
+              <button
+                type="button"
+                class="close text-light"
+                data-dismiss="modal"
+                aria-label="Close"
+                (click)="closeModal()"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="d-flex justify-content-end">
+              <div class="input-group-prepend mt-3">
+                <button
+                  class="btn btn-success dropdown-toggle"
+                  type="button"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  Añadir Profesor
+                </button>
+                <div class="dropdown-menu">
+                  <div *ngFor="let profesor of profesors">
+                    <a *ngIf="!checkProfesor(profesor)" (click)="asignarProfesor(profesor)" class="dropdown-item">{{
+                      profesor.name
+                    }}</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              *ngIf="profesorTutor.length == 0"
+              class="jumbotron jumbotron-fluid m-2 p-3"
+            >
+              <div class="container">
+                <p class="lead">No hay ningun profesor asignado a este tutor</p>
+              </div>
+            </div>
+            <div *ngIf="profesorTutor.length > 0">
+              <h5>Profesor asignado:</h5>
+              <div *ngFor="let profesorTutor of profesorTutor" class="alert alert-secondary mt-3" role="alert">
+                <div class="d-flex justify-content-between align-items-center">
+                  <strong>{{profesorTutor.profesor.name}}</strong>
+                  <button (click)="deleteProfesor(profesorTutor)" class="btn btn-danger">Eliminar</button>
+                  </div>
+              </div>
+            </div>
+            <div class="modal-footer bg-dark text-light mt-3">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+                (click)="closeModal()"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

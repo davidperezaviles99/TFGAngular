@@ -19,7 +19,6 @@ export interface IProfesor {
     lastname: string;
     email: string;
     role: string;
-    tutor: ITutor[];
 }
 
 export interface ITutor {
@@ -28,8 +27,13 @@ export interface ITutor {
     lastname: string;
     email: string;
     role: string;
-    profesor: IProfesor[];
     alumno: IAlumno[];
+}
+
+export interface IProfesorTutor{
+    id?: number;
+    profesor: IProfesor,
+    tutor: ITutor;
 }
 
 export interface IAlumno{
