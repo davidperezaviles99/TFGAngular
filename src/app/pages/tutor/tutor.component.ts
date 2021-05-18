@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { IProfesorTutor, ITutor } from 'src/app/interfaces/interfaces';
+import { ITutor } from 'src/app/interfaces/interfaces';
 import { UsersService } from 'src/app/services/users.service';
-import { ProfesorTutorService } from 'src/app/services/profesor-tutor.service';
 import { Tutor } from 'src/app/models/models';
 
 
@@ -15,11 +14,10 @@ export class TutorComponent implements OnInit {
   public profesorModal = false;
 
   public tutors: ITutor[] = [];
-  public profesorTutors: IProfesorTutor[] = [];
 
   public tutor = new Tutor();
 
-  constructor(public _usersService: UsersService, public _profesorTutorService: ProfesorTutorService) { }
+  constructor(public _usersService: UsersService) { }
 
   ngOnInit(): void {
     this.getTutorList()
@@ -48,24 +46,24 @@ export class TutorComponent implements OnInit {
     this.showModal = showModal;
   }
 
-  openprofesorModal (tutor: ITutor){
-    this.tutor.id = tutor.id
-    this.getProfesorTutors(tutor.id)
-    this.profesorModal = true;
-  }
+  // openprofesorModal (tutor: ITutor){
+  //   this.tutor.id = tutor.id
+  //   this.getProfesorTutors(tutor.id)
+  //   this.profesorModal = true;
+  // }
 
-  getProfesorTutors(tutor: number){
-    this._profesorTutorService.getProfesorByID(tutor).subscribe(resp => {
-      this.profesorTutors = resp
-    }, err => {
-      console.log(err)
-    })
-  }
+  // getProfesorTutors(tutor: number){
+  //   this._profesorTutorService.getProfesorByID(tutor).subscribe(resp => {
+  //     this.profesorTutors = resp
+  //   }, err => {
+  //     console.log(err)
+  //   })
+  // }
 
-  closeProfesorModal(showModal: boolean){
-    this.tutor = new Tutor()
-      this.profesorModal = showModal;
-  }
+  // closeProfesorModal(showModal: boolean){
+  //   this.tutor = new Tutor()
+  //     this.profesorModal = showModal;
+  // }
 
   updateTutor(tempTutor: ITutor) {
     const index = this.tutors.findIndex(o => o.id == tempTutor.id)
@@ -73,7 +71,8 @@ export class TutorComponent implements OnInit {
     if(index > -1) {
       this.tutors.splice(index, 1, tempTutor)
     } else {
-      this.tutors.push(tempTutor)
+      this.tutors.push(tempTutor);
+      this.getTutorList();
     }
   }
 

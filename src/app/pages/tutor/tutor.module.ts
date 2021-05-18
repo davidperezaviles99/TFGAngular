@@ -16,7 +16,6 @@ import { ComponentsModule } from 'src/app/components/components.module';
     FormsModule,
     TutorRoutingModule,
     ComponentsModule
-
   ]
 })
 export class TutorModule { }

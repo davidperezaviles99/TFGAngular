@@ -14,7 +14,7 @@ export interface IUser {
 }
 
 export interface IProfesor {
-    id?: number;
+    id: number;
     name: string;
     lastname: string;
     email: string;
@@ -25,15 +25,9 @@ export interface ITutor {
     id?: number;
     name: string;
     lastname: string;
+    nombreEmpresa: string;
     email: string;
     role: string;
-    alumno: IAlumno[];
-}
-
-export interface IProfesorTutor{
-    id?: number;
-    profesor: IProfesor,
-    tutor: ITutor;
 }
 
 export interface IAlumno{
@@ -42,5 +36,5 @@ export interface IAlumno{
     lastname: string;
     email: string;
     role: string;
-    tutor: ITutor;
+    //curso: ICurso;
 }

@@ -1,7 +1,7 @@
 import { IAlumno, IProfesor, ITutor } from "../interfaces/interfaces";
 
 export class Profesor implements IProfesor{
-    id?: number;
+    id: number;
     name: string;
     lastname: string;
     email: string;
@@ -23,26 +23,29 @@ export class Profesor implements IProfesor{
 }
 
 export class Tutor implements ITutor{
-    id?: number;
-    name: string;
-    lastname: string;
-    email: string;
-    role: string;
+    public id?: number;
+    public name: string;
+    public lastname: string;
+    public nombreEmpresa: string;
+    public email: string;
+    public role: string;
+
 
     constructor(
         id: number = null,
         name: string = null,
         lastname: string = null,
+        nombreEmpresa: string = null,
         email: string = null,
         role: string = null,
     ){
         this.id = id;
         this.name = name;
         this.lastname = lastname;
+        this.nombreEmpresa = nombreEmpresa;
         this.email = email;
         this.role = role;
-    }
-    alumno: IAlumno[];   
+    } 
 }
 
 export class Alumno implements IAlumno{
@@ -51,7 +54,7 @@ export class Alumno implements IAlumno{
     lastname: string;
     email: string;
     role: string;
-    tutor: ITutor;
+    //curso: ICurso;
 
     constructor(
         id: number = null,
@@ -59,14 +62,14 @@ export class Alumno implements IAlumno{
         lastname: string = null,
         email: string = null,
         role: string = null,
-        tutor: ITutor = { id: null, name: null, lastname: null, email: null, role: null, alumno: null},
+        //tutor: ITutor = { id: null, name: null, lastname: null, email: null, role: null, alumno: null},
     ){ 
         this.id = id;
         this.name = name;
         this.lastname = lastname;
         this.email = email;
         this.role = role;
-        this.tutor = tutor;
+        //this.curso = curso;
     }
 }
 

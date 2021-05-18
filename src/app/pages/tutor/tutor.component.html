@@ -12,7 +12,7 @@
           <th>Name</th>
           <th>LastName</th>
           <th>Email</th>
-          <th>Profesores</th>
+          <th>Nombre Empresa</th>
           <th>Edit</th>
           <th>Delete</th>
         </tr>
@@ -23,9 +23,7 @@
             <td>{{ tutor.name }}</td>
             <td>{{ tutor.lastname }}</td>
             <td>{{ tutor.email }}</td>
-              <td>
-                <button (click)="openprofesorModal(tutor)" class="btn btn-success">Profesores</button>
-              </td>
+            <td>{{ tutor.nombreEmpresa }}</td>
               <td>
               <button (click)="openModal(tutor)" class="btn btn-warning">
                 Edit
@@ -48,10 +46,3 @@
   (close)="closeModal($event)"
   (newTutor)="updateTutor($event)"
 ></app-tutor-crud>
-
-<app-profesor-modal
-  [showModal]="profesorModal"
-  [profesorTutor]="profesorTutors"
-  [tutor]="tutor"
-  (close)="closeProfesorModal($event)"
-></app-profesor-modal>

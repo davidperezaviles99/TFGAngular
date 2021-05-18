@@ -1,7 +1,7 @@
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IAlumno, IProfesor, ITutor } from 'src/app/interfaces/interfaces';
+import { ITutor } from 'src/app/interfaces/interfaces';
 import { UsersService } from 'src/app/services/users.service';
 
 @Component({
@@ -13,8 +13,6 @@ export class TutorCrudComponent implements OnInit {
 
   public form: FormGroup;
   public submitted = false;
-  public profesors: IProfesor[] = [];
-  public alumnos: IAlumno[] = [];
 
   public roles = ['Tutor'];
 
@@ -30,18 +28,6 @@ export class TutorCrudComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm();
-    this.getAlumnoList();
-  }
-
-  getAlumnoList(){
-    this._usersService.getAlumnoList().subscribe(
-      (resp) => {
-        this.alumnos = resp;
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
   }
 
   closeModal() {
@@ -129,6 +115,14 @@ export class TutorCrudComponent implements OnInit {
           Validators.minLength(2),
         ],
       ],
+      nombreEmpresa: [
+        '',
+        [
+          Validators.required,
+          Validators.maxLength(70),
+          Validators.minLength(2),
+        ],
+      ],
       email: ['', [Validators.required, Validators.email]],
       role: ['', [Validators.required]],
       password: [
@@ -152,6 +146,11 @@ export class TutorCrudComponent implements OnInit {
       { type: 'minlength', message: 'Minimun 2 characters' },
     ],
     lastname: [
+      { type: 'required', message: 'The name is required' },
+      { type: 'maxlength', message: 'Maximum 70 characters' },
+      { type: 'minlength', message: 'Minimun 2 characters' },
+    ],
+    nombreEmpresa: [
       { type: 'required', message: 'The name is required' },
       { type: 'maxlength', message: 'Maximum 70 characters' },
       { type: 'minlength', message: 'Minimun 2 characters' },
