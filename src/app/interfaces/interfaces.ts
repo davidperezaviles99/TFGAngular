@@ -1,12 +1,10 @@
-import { InputDecorator } from "@angular/core";
-
 export interface ILogin {
     email: string;
     password: string;
 }
 
 export interface IUser {
-    id?: string;
+    id: string;
     name: string;
     lastname: string;
     email: string;
@@ -22,7 +20,7 @@ export interface IProfesor {
 }
 
 export interface ITutor {
-    id?: number;
+    id: number;
     name: string;
     lastname: string;
     nombreEmpresa: string;
@@ -31,10 +29,27 @@ export interface ITutor {
 }
 
 export interface IAlumno{
-    id?: number;
+    id: number;
     name: string;
     lastname: string;
     email: string;
     role: string;
-    //curso: ICurso;
+    curso: ICurso;
+    profesor: IProfesor;
+    tutor: ITutor;
+}
+
+export interface ICurso{
+    id: number;
+    numero: number;
+    name: string;
+    asignaturas: IAsignaturas[];
+    alumno: IAlumno[];
+}
+
+export interface IAsignaturas{
+    id: number;
+    codigo: number;
+    name: string;
+    profesor: IProfesor;
 }

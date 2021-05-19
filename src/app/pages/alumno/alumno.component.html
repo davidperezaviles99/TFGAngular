@@ -10,9 +10,11 @@
         <tr>
           <th>#</th>
           <th>Name</th>
-          <th>LastName</th>
+          <th>Lastname</th>
           <th>Email</th>
           <th>Tutor Asignado</th>
+          <th>Profesor Asignado</th>
+          <th>Curso</th>
           <th>Edit</th>
           <th>Delete</th>
         </tr>
@@ -23,6 +25,9 @@
             <td>{{ alumno.name }}</td>
             <td>{{ alumno.lastname }}</td>
             <td>{{ alumno.email }}</td>
+            <td>{{ alumno.profesor.lastname}}</td>
+            <td>{{ alumno.tutor.lastname }}</td>
+            <td>{{ alumno.curso.name }}</td>
             <td>
               <button (click)="openModal(alumno)" class="btn btn-warning">
                 Edit

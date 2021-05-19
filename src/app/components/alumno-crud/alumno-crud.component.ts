@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IAlumno, ITutor } from 'src/app/interfaces/interfaces';
+import { IAlumno, ICurso, IProfesor, ITutor } from 'src/app/interfaces/interfaces';
+import { MaterialService } from 'src/app/services/material.service';
 import { UsersService } from 'src/app/services/users.service';
 
 @Component({
@@ -13,6 +14,8 @@ export class AlumnoCrudComponent implements OnInit {
   public form: FormGroup;
   public submitted = false;
   public tutors: ITutor[] = [];
+  public profesors: IProfesor[] = [];
+  public cursos: ICurso[] = [];
 
   public roles = [ 'Alumno'];
 
@@ -24,17 +27,42 @@ export class AlumnoCrudComponent implements OnInit {
   constructor(
     private _usersService: UsersService,
     private _formBuilder: FormBuilder,
+    private _materialService: MaterialService
   ) { }
 
   ngOnInit(): void {
     this.createForm();
     this.getTutorList();
+    this.getProfesorList();
+    this.getCursoList();
   }
 
   getTutorList(){
     this._usersService.getTutorList().subscribe(
       (resp) => {
         this.tutors = resp;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  getProfesorList(){
+    this._usersService.getProfesorList().subscribe(
+      (resp) => {
+        this.profesors = resp;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  getCursoList(){
+    this._materialService.getCursoList().subscribe(
+      (resp) => {
+        this.cursos = resp;
       },
       (err) => {
         console.log(err);
@@ -54,6 +82,10 @@ export class AlumnoCrudComponent implements OnInit {
     if (this.form.invalid) return;
 
     const fields = this.form.value;
+
+    fields.tutor = this.tutors.find((p) => p.id == fields.tutor);
+    fields.profesor = this.profesors.find((p) => p.id == fields.profesor);
+    fields.curso = this.cursos.find((p) => p.id == fields.curso);
 
     if (this.alumno.id) {
       this.update(fields);
@@ -124,6 +156,8 @@ export class AlumnoCrudComponent implements OnInit {
         ],
       ],
       tutor: ['', [Validators.required]],
+      profesor: ['', [Validators.required]],
+      curso: ['', [Validators.required]],
     });
   }
 
@@ -156,6 +190,8 @@ export class AlumnoCrudComponent implements OnInit {
       },
     ],
     tutor: [{ type: 'required', message: 'Choose one' }],
+    profesor: [{ type: 'required', message: 'Choose one' }],
+    curso: [{ type: 'required', message: 'Choose one' }],
   };
 
 }

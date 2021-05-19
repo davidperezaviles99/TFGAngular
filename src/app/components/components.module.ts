@@ -7,6 +7,8 @@ import { ProfesorCrudComponent } from './profesor-crud/profesor-crud.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TutorCrudComponent } from './tutor-crud/tutor-crud.component';
 import { AlumnoCrudComponent } from './alumno-crud/alumno-crud.component';
+import { AsignaturaCrudComponent } from './asignatura-crud/asignatura-crud.component';
+import { CursoCrudComponent } from './curso-crud/curso-crud.component';
 
 
 
@@ -15,7 +17,9 @@ import { AlumnoCrudComponent } from './alumno-crud/alumno-crud.component';
     NavbarComponent,
     ProfesorCrudComponent,
     TutorCrudComponent,
-    AlumnoCrudComponent
+    AlumnoCrudComponent,
+    AsignaturaCrudComponent,
+    CursoCrudComponent
   ],
   imports: [
     CommonModule,
@@ -27,6 +31,8 @@ import { AlumnoCrudComponent } from './alumno-crud/alumno-crud.component';
     ProfesorCrudComponent,
     TutorCrudComponent,
     AlumnoCrudComponent,
+    AsignaturaCrudComponent,
+    CursoCrudComponent
   ]
 })
 export class ComponentsModule { }

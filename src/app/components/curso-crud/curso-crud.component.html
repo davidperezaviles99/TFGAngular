@@ -1,0 +1,114 @@
+<div class="myContainer" [class.myContainer]="!showModal">
+    <div class="modal mt-5" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="modal-header bg-dark text-light">
+              <h5 class="modal-title">Crear asignatura</h5>
+              <button
+                type="button"
+                class="close text-light"
+                data-dismiss="modal"
+                aria-label="Close"
+                (click)="closeModal()"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+              <div>
+                <input
+                  class="form-control mt-3"
+                  type="text"
+                  placeholder="Name"
+                  formControlName="name"
+                  [(ngModel)]="curso.name"
+                />
+              </div>
+              <div *ngIf="submitted && form.invalid">
+                <div *ngFor="let error of errorMessages.name">
+                  <div *ngIf="f.name.hasError(error.type)">
+                    <small class="text-danger">{{ error.message }}</small>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <input
+                  class="form-control mt-3"
+                  type="text"
+                  placeholder="numero"
+                  formControlName="numero"
+                  [(ngModel)]="curso.numero"
+                />
+              </div>
+              <div *ngIf="submitted && form.invalid">
+                <div *ngFor="let error of errorMessages.numero">
+                  <div *ngIf="f.numero.hasError(error.type)">
+                    <small class="text-danger">{{ error.message }}</small>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="">Alumno Asignado:  <span *ngIf="curso.alumno.lastname" class="badge badge-dark">{{curso.alumno.lastname}}</span> </label>
+                <select multiple
+                  class="form-control"
+                  formControlName="alumno"
+                >
+                <option value="0">Ninguno</option>
+                  <option
+                    *ngFor="let alumno of alumnos"
+                    [value]="alumno.id"
+                  >
+                  {{ alumno.name}} - {{ alumno.lastname }}
+                  </option>
+                </select>
+                <div *ngIf="submitted && form.invalid">
+                  <div *ngFor="let error of errorMessages.alumno">
+                    <div *ngIf="f.alumno.hasError(error.type)">
+                      <small class="text-danger">{{ error.message }}</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="">Asignatura Asignada:  <span *ngIf="curso.asignaturas.name" class="badge badge-dark">{{curso.asignaturas.name}}</span> </label>
+                <select multiple
+                  class="form-control"
+                  formControlName="asignatura"
+                >
+                <option value="0">Ninguno</option>
+                  <option
+                    *ngFor="let asignatura of asignaturas"
+                    [value]="asignatura.id"
+                  >
+                  {{ asignatura.codigo}} - {{ asignatura.name }}
+                  </option>
+                </select>
+                <div *ngIf="submitted && form.invalid">
+                  <div *ngFor="let error of errorMessages.asignatura">
+                    <div *ngIf="f.asignatura.hasError(error.type)">
+                      <small class="text-danger">{{ error.message }}</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer bg-dark text-light mt-3">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-dismiss="modal"
+                  (click)="closeModal()"
+                >
+                  Close
+                </button>
+                <button type="submit" class="btn btn-primary">
+                  Save changes
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

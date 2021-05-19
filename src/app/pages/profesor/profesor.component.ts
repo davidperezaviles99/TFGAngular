@@ -10,7 +10,6 @@ import { UsersService } from 'src/app/services/users.service';
 })
 export class ProfesorComponent implements OnInit {
 public showModal = false;
-public tutorModal = false;
 
 public profesors: IProfesor[] = [];
 
@@ -65,17 +64,15 @@ public profesor = new Profesor();
   // }
   
 
-  updateProfesor(profesor: IProfesor) {
-    const index = this.profesors.findIndex(o => o.id == profesor.id);
-
-    if(index > -1) {
+  updateProfesor (profesor: IProfesor){
+    const index = this.profesors.findIndex((p) => p.id == profesor.id);
+    if (index > -1) {
       this.profesors.splice(index, 1, profesor);
+      location.reload();
     } else {
       this.profesors.push(profesor);
       this.getProfesorList();
     }
-
-    
   }
 
   deleteprofesor(id: number) {

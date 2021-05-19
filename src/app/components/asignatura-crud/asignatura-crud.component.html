@@ -1,0 +1,92 @@
+<div class="myContainer" [class.myContainer]="!showModal">
+    <div class="modal mt-5" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="modal-header bg-dark text-light">
+              <h5 class="modal-title">Crear asignatura</h5>
+              <button
+                type="button"
+                class="close text-light"
+                data-dismiss="modal"
+                aria-label="Close"
+                (click)="closeModal()"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+              <div>
+                <input
+                  class="form-control mt-3"
+                  type="text"
+                  placeholder="Name"
+                  formControlName="name"
+                  [(ngModel)]="asignatura.name"
+                />
+              </div>
+              <div *ngIf="submitted && form.invalid">
+                <div *ngFor="let error of errorMessages.name">
+                  <div *ngIf="f.name.hasError(error.type)">
+                    <small class="text-danger">{{ error.message }}</small>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <input
+                  class="form-control mt-3"
+                  type="text"
+                  placeholder="codigo"
+                  formControlName="codigo"
+                  [(ngModel)]="asignatura.codigo"
+                />
+              </div>
+              <div *ngIf="submitted && form.invalid">
+                <div *ngFor="let error of errorMessages.codigo">
+                  <div *ngIf="f.codigo.hasError(error.type)">
+                    <small class="text-danger">{{ error.message }}</small>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="">Profesor Asignado:  <span *ngIf="asignatura.profesor.lastname" class="badge badge-dark">{{asignatura.profesor.lastname}}</span> </label>
+                <select
+                  class="form-control"
+                  formControlName="profesor"
+                >
+                <option value="0">Ninguno</option>
+                  <option
+                    *ngFor="let profesor of profesors"
+                    [value]="profesor.id"
+                  >
+                  {{ profesor.name}} - {{ profesor.lastname }}
+                  </option>
+                </select>
+                <div *ngIf="submitted && form.invalid">
+                  <div *ngFor="let error of errorMessages.profesor">
+                    <div *ngIf="f.profesor.hasError(error.type)">
+                      <small class="text-danger">{{ error.message }}</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer bg-dark text-light mt-3">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-dismiss="modal"
+                  (click)="closeModal()"
+                >
+                  Close
+                </button>
+                <button type="submit" class="btn btn-primary">
+                  Save changes
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

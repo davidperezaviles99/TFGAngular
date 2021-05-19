@@ -19,6 +19,14 @@ const routes: Routes = [
     loadChildren: () => import('./pages/alumno/alumno.module').then ( m=> m.AlumnoModule)
   },
   {
+    path: 'Asignatura',
+    loadChildren: () => import('./pages/asignatura/asignatura.module').then ( m=> m.AsignaturaModule)
+  },
+  {
+    path: 'Curso',
+    loadChildren: () => import('./pages/curso/curso.module').then ( m=> m.CursoModule)
+  },
+  {
     path: '',
     loadChildren: () => import('./pages/login/login.module').then( m => m.LoginModule)
   },

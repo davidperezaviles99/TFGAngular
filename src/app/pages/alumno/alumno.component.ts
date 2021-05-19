@@ -1,4 +1,3 @@
-import { NULL_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { IAlumno, ITutor } from 'src/app/interfaces/interfaces';
 import { Alumno } from 'src/app/models/models';
@@ -51,7 +50,8 @@ export class AlumnoComponent implements OnInit {
     if(index > -1) {
       this.alumnos.splice(index, 1, tempAlumno)
     } else {
-      this.alumnos.push(tempAlumno)
+      this.alumnos.push(tempAlumno);
+      this.getAlumnoList();
     }
   }
 

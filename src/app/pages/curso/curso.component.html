@@ -1,0 +1,48 @@
+<app-navbar></app-navbar>
+
+<div class="container mt-5 pt-5">
+  <button (click)="openModal()" class="btn btn-primary mb-3 float-right">
+    Create curso
+  </button>
+  <div *ngIf="cursos.length > 0" class="table-responsive">
+    <table class="table table-striped table-light text-center">
+      <thead class="thead-dark">
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Numero</th>
+          <th>Asignaturas</th>
+          <th>Alumnos</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let curso of cursos; index as i">
+            <th>{{ i + 1 }}</th>
+            <td>{{ curso.name }}</td>
+            <td>{{ curso.numero }}</td>
+            <td>{{ curso.asignaturas.name }}</td>
+            <td>{{ curso.alumno.lastname }}</td>
+            <td>
+              <button (click)="openModal(curso)" class="btn btn-warning">
+                Edit
+              </button>
+            </td>
+            <td>
+              <button (click)="deletecurso(curso.id)" class="btn btn-danger">
+                Delete
+              </button>
+            </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<app-curso-crud
+  [showModal]="showModal"
+  [curso]="curso"
+  (close)="closeModal($event)"
+  (newcurso)="updatecurso($event)"
+></app-curso-crud>

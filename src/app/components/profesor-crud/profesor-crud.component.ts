@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IProfesor, ITutor } from 'src/app/interfaces/interfaces';
+import { IProfesor } from 'src/app/interfaces/interfaces';
 import { UsersService } from 'src/app/services/users.service';
 
 @Component({
@@ -12,7 +12,6 @@ export class ProfesorCrudComponent implements OnInit {
 
   public form: FormGroup;
   public submitted = false;
-  public tutors: ITutor[] = [];
 
   public roles = [ 'Profesor'];
 
