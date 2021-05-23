@@ -1,28 +1,26 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IAlumno, IAsignaturas, ICurso } from 'src/app/interfaces/interfaces';
+import { IAsignaturas, IDiario } from 'src/app/interfaces/interfaces';
+import { DiarioService } from 'src/app/services/diario.service';
 import { MaterialService } from 'src/app/services/material.service';
-import { UsersService } from 'src/app/services/users.service';
 
 @Component({
-  selector: 'app-curso-crud',
-  templateUrl: './curso-crud.component.html',
-  styleUrls: ['./curso-crud.component.css']
+  selector: 'app-diario-crud',
+  templateUrl: './diario-crud.component.html',
+  styleUrls: ['./diario-crud.component.css']
 })
-export class CursoCrudComponent implements OnInit {
+export class DiarioCrudComponent implements OnInit {
   public form: FormGroup;
   public submitted = false;
 
   public asignaturas: IAsignaturas[] = [];
 
-  @Input() curso: ICurso;
+  @Input() diario: IDiario;
   @Input() showModal: boolean;
   @Output() close: EventEmitter<boolean> = new EventEmitter();
-  @Output() newCurso: EventEmitter<ICurso> = new EventEmitter();
-  
-  constructor(private _usersService: UsersService,
-    private _formBuilder: FormBuilder,
-    private _materialService: MaterialService) { }
+  @Output() newDiario: EventEmitter<IDiario> = new EventEmitter();
+
+  constructor(private _diarioService: DiarioService, private _formBuilder: FormBuilder, private _materialService: MaterialService) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -55,7 +53,7 @@ export class CursoCrudComponent implements OnInit {
 
     fields.asignatura = this.asignaturas.find((p) => p.id == fields.asignatura);
 
-    if (this.curso.id) {
+    if (this.diario.id) {
       this.update(fields);
     } else {
       this.register(fields);
@@ -64,11 +62,11 @@ export class CursoCrudComponent implements OnInit {
 
   register(values: any) {
 
-    const cursoData: ICurso = values;
+    const diarioData: IDiario = values;
 
-    this._materialService.registerC(cursoData).subscribe(
+    this._diarioService.registerD(diarioData).subscribe(
       (resp) => {
-        this.newCurso.emit(resp);
+        this.newDiario.emit(resp);
         this.closeModal()
       },
       (err) => {
@@ -81,13 +79,13 @@ export class CursoCrudComponent implements OnInit {
 
     const { ...fields } = values;
 
-    const cursoData: ICurso = JSON.parse(JSON.stringify(this.curso));
+    const diarioData: IDiario = JSON.parse(JSON.stringify(this.diario));
 
-    Object.assign(cursoData, fields)
+    Object.assign(diarioData, fields)
 
-    this._materialService.updateC(cursoData).subscribe(
+    this._diarioService.updateD(diarioData).subscribe(
       (resp) => {
-        this.newCurso.emit(resp);
+        this.newDiario.emit(resp);
         this.closeModal()
       },
       (err) => {
@@ -98,20 +96,28 @@ export class CursoCrudComponent implements OnInit {
 
   createForm() {
     this.form = this._formBuilder.group({
-      numero: [
+      date: ['',[Validators.required,],],
+      horas: [
         '',
         [
           Validators.required,
-          Validators.maxLength(45),
+          Validators.maxLength(2),
           Validators.minLength(1),
         ],
       ],
-      name: [
+      descripcion: [
         '',
         [
           Validators.required,
-          Validators.maxLength(70),
-          Validators.minLength(2),
+          Validators.maxLength(150),
+          Validators.minLength(3),
+        ],
+      ],
+      link: [
+        '',
+        [
+          Validators.maxLength(150),
+          Validators.minLength(3),
         ],
       ],
       asignatura: ['', [Validators.required]],
@@ -123,15 +129,20 @@ export class CursoCrudComponent implements OnInit {
   }
 
   public errorMessages = {
-    numero: [
-      { type: 'required', message: 'The Code is required' },
-      { type: 'maxlength', message: 'Maximum 45 characters' },
+    date: [{ type: 'required', message: 'The Date is required' }],
+    horas: [
+      { type: 'required', message: 'The hours is required' },
+      { type: 'maxlength', message: 'Maximum 2 characters' },
       { type: 'minlength', message: 'Minimun 1 characters' },
     ],
-    name: [
-      { type: 'required', message: 'The name is required' },
-      { type: 'maxlength', message: 'Maximum 70 characters' },
-      { type: 'minlength', message: 'Minimun 2 characters' },
+    descripcion: [
+      { type: 'required', message: 'The description is required' },
+      { type: 'maxlength', message: 'Maximum 150 characters' },
+      { type: 'minlength', message: 'Minimun 3 characters' },
+    ],
+    link: [
+      { type: 'maxlength', message: 'Maximum 150 characters' },
+      { type: 'minlength', message: 'Minimun 3 characters' },
     ],
     asignatura: [{ type: 'required', message: 'Choose one' }],
   };

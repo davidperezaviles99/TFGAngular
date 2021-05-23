@@ -9,10 +9,9 @@
       <thead class="thead-dark">
         <tr>
           <th>#</th>
-          <th>Name</th>
           <th>Numero</th>
-          <th>Asignaturas</th>
-          <th>Alumnos</th>
+          <th>Name</th>          
+          <th>Asignatura</th>
           <th>Edit</th>
           <th>Delete</th>
         </tr>
@@ -20,10 +19,9 @@
       <tbody>
           <tr *ngFor="let curso of cursos; index as i">
             <th>{{ i + 1 }}</th>
-            <td>{{ curso.name }}</td>
             <td>{{ curso.numero }}</td>
-            <td>{{ curso.asignaturas.name }}</td>
-            <td>{{ curso.alumno.lastname }}</td>
+            <td>{{ curso.name }}</td>            
+            <td>{{ curso.asignatura.name }}</td>
             <td>
               <button (click)="openModal(curso)" class="btn btn-warning">
                 Edit
@@ -44,5 +42,5 @@
   [showModal]="showModal"
   [curso]="curso"
   (close)="closeModal($event)"
-  (newcurso)="updatecurso($event)"
+  (newCurso)="updateCurso($event)"
 ></app-curso-crud>

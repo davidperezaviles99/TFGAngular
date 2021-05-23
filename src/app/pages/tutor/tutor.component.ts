@@ -65,13 +65,13 @@ export class TutorComponent implements OnInit {
   //     this.profesorModal = showModal;
   // }
 
-  updateTutor(tempTutor: ITutor) {
-    const index = this.tutors.findIndex(o => o.id == tempTutor.id)
+  updateTutor(tutor: ITutor) {
+    const index = this.tutors.findIndex(o => o.id == tutor.id)
 
     if(index > -1) {
-      this.tutors.splice(index, 1, tempTutor)
+      this.tutors.splice(index, 1, tutor);
     } else {
-      this.tutors.push(tempTutor);
+      this.tutors.push(tutor);
       this.getTutorList();
     }
   }

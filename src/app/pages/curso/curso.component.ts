@@ -44,19 +44,18 @@ export class CursoComponent implements OnInit {
     this.showModal = showModal;
   }
 
-  updateCurso(tempCurso: ICurso) {
-    const index = this.cursos.findIndex(o => o.id == tempCurso.id)
+  updateCurso(curso: ICurso) {
+    const index = this.cursos.findIndex(o => o.id == curso.id)
 
     if(index > -1) {
-      this.cursos.splice(index, 1, tempCurso);
-      location.reload();
+      this.cursos.splice(index, 1, curso);
     } else {
-      this.cursos.push(tempCurso);
+      this.cursos.push(curso);
       this.getCursoList();
     }
   }
 
-  deleteasignatura(id: number) {
+  deletecurso(id: number) {
     this._materialservice.deleteC(id).subscribe(
       () => {
         this.getCursoList();

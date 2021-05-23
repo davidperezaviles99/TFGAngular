@@ -1,0 +1,95 @@
+<app-navbar></app-navbar>
+
+<div class="container mt-5 pt-5">
+  <button (click)="openModal('evaluacion')" class="btn btn-primary mb-3 float-right">
+    Create Diario
+  </button>
+  <div *ngIf="diarios.length > 0" class="table-responsive">
+    <table class="table table-striped table-light text-center">
+      <thead class="thead-dark">
+        <tr>
+          <th>#</th>
+          <th>Fecha</th>
+          <th>Asignatura</th>
+          <th>Descripcion</th>          
+          <th>Horas</th>
+          <th>Link</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let diario of diarios; index as i">
+            <th>{{ i + 1 }}</th>
+            <td>{{ diario.date }}</td>
+            <td>{{ diario.asignatura.name }}</td>
+            <td>{{ diario.descripcion }}</td>
+            <td>{{ diario.horas}}</td>
+            <td>{{ diario.link}}</td>            
+            <td>
+              <button (click)="openModal('diario', null, diario)" class="btn btn-warning">
+                Edit
+              </button>
+            </td>
+            <td>
+              <button (click)="deletediario(diario.id)" class="btn btn-danger">
+                Delete
+              </button>
+            </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="container mt-5 pt-5">
+  <button (click)="openModal('evaluacion')" class="btn btn-primary mb-3 float-right">
+    Añadir Evaluacion
+  </button>
+  <div *ngIf="evaluacions.length > 0" class="table-responsive">
+    <table class="table table-striped table-light text-center">
+      <thead class="thead-dark">
+        <tr>
+          <th>#</th>
+          <th>Fecha</th>
+          <th>Nota Tutor</th>
+          <th>Nota Profesor</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let evaluacion of evaluacions; index as i">
+            <th>{{ i + 1 }}</th>
+            <td>{{ evaluacion.date }}</td>
+            <td>{{ evaluacion.evaluacionT }}</td>
+            <td>{{ evaluacion.evaluacionP}}</td>          
+            <td>
+              <button (click)="openModal('evaluacion', evaluacion)" class="btn btn-warning">
+                Edit
+              </button>
+            </td>
+            <td>
+              <button (click)="deleteevaluacion(evaluacion.id)" class="btn btn-danger">
+                Delete
+              </button>
+            </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<app-diario-crud
+  [showModal]="showModal"
+  [diario]="diario"
+  (close)="closeModal($event, 'diario')"
+  (newDiario)="updateDiario($event)"
+></app-diario-crud>
+
+<app-evaluacion-crud
+  [showModal]="showEvaluacionModal"
+  [evaluacion]="evaluacion"
+  (close)="closeModal($event,'evaluacion')"
+  (newEvaluacion)="updateEvaluacion($event)"
+></app-evaluacion-crud>
+

@@ -13,8 +13,8 @@ export class AlumnoCrudComponent implements OnInit {
 
   public form: FormGroup;
   public submitted = false;
-  public tutors: ITutor[] = [];
-  public profesors: IProfesor[] = [];
+  // public tutors: ITutor[] = [];
+  // public profesors: IProfesor[] = [];
   public cursos: ICurso[] = [];
 
   public roles = [ 'Alumno'];
@@ -32,32 +32,32 @@ export class AlumnoCrudComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm();
-    this.getTutorList();
-    this.getProfesorList();
+    // this.getTutorList();
+    // this.getProfesorList();
     this.getCursoList();
   }
 
-  getTutorList(){
-    this._usersService.getTutorList().subscribe(
-      (resp) => {
-        this.tutors = resp;
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
-  }
+  // getTutorList(){
+  //   this._usersService.getTutorList().subscribe(
+  //     (resp) => {
+  //       this.tutors = resp;
+  //     },
+  //     (err) => {
+  //       console.log(err);
+  //     }
+  //   );
+  // }
 
-  getProfesorList(){
-    this._usersService.getProfesorList().subscribe(
-      (resp) => {
-        this.profesors = resp;
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
-  }
+  // getProfesorList(){
+  //   this._usersService.getProfesorList().subscribe(
+  //     (resp) => {
+  //       this.profesors = resp;
+  //     },
+  //     (err) => {
+  //       console.log(err);
+  //     }
+  //   );
+  // }
 
   getCursoList(){
     this._materialService.getCursoList().subscribe(
@@ -83,8 +83,8 @@ export class AlumnoCrudComponent implements OnInit {
 
     const fields = this.form.value;
 
-    fields.tutor = this.tutors.find((p) => p.id == fields.tutor);
-    fields.profesor = this.profesors.find((p) => p.id == fields.profesor);
+    // fields.tutor = this.tutors.find((p) => p.id == fields.tutor);
+    // fields.profesor = this.profesors.find((p) => p.id == fields.profesor);
     fields.curso = this.cursos.find((p) => p.id == fields.curso);
 
     if (this.alumno.id) {
@@ -155,8 +155,8 @@ export class AlumnoCrudComponent implements OnInit {
           Validators.pattern(/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S*$/),
         ],
       ],
-      tutor: ['', [Validators.required]],
-      profesor: ['', [Validators.required]],
+      // tutor: ['', [Validators.required]],
+      // profesor: ['', [Validators.required]],
       curso: ['', [Validators.required]],
     });
   }
@@ -189,8 +189,8 @@ export class AlumnoCrudComponent implements OnInit {
           'Password must contain at least one lowercase letter, one uppercase letter, and one number',
       },
     ],
-    tutor: [{ type: 'required', message: 'Choose one' }],
-    profesor: [{ type: 'required', message: 'Choose one' }],
+    // tutor: [{ type: 'required', message: 'Choose one' }],
+    // profesor: [{ type: 'required', message: 'Choose one' }],
     curso: [{ type: 'required', message: 'Choose one' }],
   };
 

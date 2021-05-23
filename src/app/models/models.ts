@@ -1,4 +1,4 @@
-import { IAlumno, IAsignaturas, ICurso, IProfesor, ITutor } from "../interfaces/interfaces";
+import { IAlumno, IAsignaturas, ICurso, IDiario, IEquipo, IEvaluacion, IProfesor, ITutor } from "../interfaces/interfaces";
 
 export class Profesor implements IProfesor{
     id: number;
@@ -64,7 +64,7 @@ export class Alumno implements IAlumno{
         lastname: string = null,
         email: string = null,
         role: string = null,
-        curso : ICurso = { id: null, name: null, numero: null, asignaturas: null, alumno: null},
+        curso : ICurso = { id: null, name: null, numero: null, asignatura: null},
         profesor: IProfesor = { id: null, name: null, lastname: null, email: null, role: null},
         tutor: ITutor = { id: null, name: null, lastname: null, email: null, nombreEmpresa: null, role: null},
     ){ 
@@ -83,19 +83,18 @@ export class Curso implements ICurso{
     id: number;
     numero: number;
     name: string;
-    asignaturas: IAsignaturas[];
-    alumno: IAlumno[];
+    asignatura: IAsignaturas;
 
     constructor(
         id: number = null,
         numero: number = null,
         name: string = null,  
-        asignaturas: IAsignaturas = { id: null, name: null, codigo: null, profesor: null},
-        alumno: IAlumno = { id: null, name: null, lastname: null, email: null, role: null, curso: null, tutor: null, profesor: null},
+        asignatura: IAsignaturas = { id: null, name: null, codigo: null, profesor: null},
     ){
         this.id = id;
         this.numero = numero;
         this.name = name;
+        this.asignatura = asignatura;
     }
 }
 
@@ -115,6 +114,55 @@ export class Asignaturas implements IAsignaturas{
         this.codigo = codigo;
         this.name = name;
         this.profesor = profesor;
+    }
+}
+
+export class Diario implements IDiario{
+    id?: number;
+    date: Date;
+    horas: number;
+    descripcion: string;
+    link: string;
+    equipo: IEquipo;
+    asignatura: IAsignaturas;
+    constructor(
+        id: number = null,
+        date: Date = null,
+        horas: number = null,
+        descripcion: string = null,
+        link: string = null,
+        equipo: IEquipo = { id: null, alumnoId: null, profesor: null, tutor: null},
+        asignatura: IAsignaturas = { id: null, name: null, codigo: null, profesor: null},
+    ){
+        this.id = id;
+        this.date = date;
+        this.horas = horas;
+        this.descripcion = descripcion;
+        this.link = link;
+        this.equipo = equipo;
+        this.asignatura = asignatura;
+    }
+    
+}
+
+export class Evaluacion implements IEvaluacion{
+    id?: number;
+    date: Date;
+    evaluacionT: string;
+    evaluacionP: string;
+    equipo: IEquipo;
+    constructor(
+        id: number = null,
+        date: Date = null,
+        evaluacionT: string = null,
+        evaluacionP: string = null,
+        equipo: IEquipo = { id: null, alumnoId: null, profesor: null, tutor: null},
+    ){
+        this.id = id;
+        this.date = date;
+        this.evaluacionT = evaluacionT;
+        this.evaluacionP = evaluacionP;
+        this.equipo = equipo;
     }
 }
 

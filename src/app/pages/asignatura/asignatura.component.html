@@ -21,7 +21,7 @@
             <th>{{ i + 1 }}</th>
             <td>{{ asignatura.name }}</td>
             <td>{{ asignatura.codigo }}</td>
-            <td>{{ asignatura.profesor.lastname }}</td>
+            <td>{{ asignatura.profesor.name}} {{ asignatura.profesor.lastname }}</td>
             <td>
               <button (click)="openModal(asignatura)" class="btn btn-warning">
                 Edit

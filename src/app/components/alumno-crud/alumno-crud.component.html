@@ -80,50 +80,6 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="">Tutor Asignado:  <span *ngIf="alumno.tutor.lastname" class="badge badge-dark">{{alumno.tutor.lastname}}</span> </label>
-                <select
-                  class="form-control"
-                  formControlName="tutor"
-                >
-                <option value="0">Ninguno</option>
-                  <option
-                    *ngFor="let tutor of tutors"
-                    [value]="tutor.id"
-                  >
-                  {{ tutor.lastname }}
-                  </option>
-                </select>
-                <div *ngIf="submitted && form.invalid">
-                  <div *ngFor="let error of errorMessages.tutor">
-                    <div *ngIf="f.tutor.hasError(error.type)">
-                      <small class="text-danger">{{ error.message }}</small>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="">Profesor Asignado:  <span *ngIf="alumno.profesor.lastname" class="badge badge-dark">{{alumno.profesor.lastname}}</span> </label>
-                <select
-                  class="form-control"
-                  formControlName="profesor"
-                >
-                <option value="0">Ninguno</option>
-                  <option
-                    *ngFor="let profesor of profesors"
-                    [value]="profesor.id"
-                  >
-                  {{ profesor.lastname }}
-                  </option>
-                </select>
-                <div *ngIf="submitted && form.invalid">
-                  <div *ngFor="let error of errorMessages.profesor">
-                    <div *ngIf="f.profesor.hasError(error.type)">
-                      <small class="text-danger">{{ error.message }}</small>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="form-group">
                 <label class="">Curso Asignado: <span *ngIf="alumno.curso.name" class="badge badge-dark">{{alumno.curso.name}}</span> </label>
                 <select
                   class="form-control"
@@ -134,7 +90,7 @@
                     *ngFor="let curso of cursos"
                     [value]="curso.id"
                   >
-                  {{ curso.name }}
+                  {{ curso.numero}} - {{ curso.name }}
                   </option>
                 </select>
                 <div *ngIf="submitted && form.invalid">

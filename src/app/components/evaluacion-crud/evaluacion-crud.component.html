@@ -1,0 +1,87 @@
+<div class="myContainer" [class.myContainer]="!showModal">
+    <div class="modal mt-5" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="modal-header bg-dark text-light">
+              <h5 class="modal-title">Evaluaciones</h5>
+              <button
+                type="button"
+                class="close text-light"
+                data-dismiss="modal"
+                aria-label="Close"
+                (click)="closeModal()"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <div>
+                    <div>
+                      <input type="date" placeholder="Fecha" displayFormat="MMM DD, YYYY" formControlName="date">
+                    </div>
+                    <div *ngIf="submitted && form.invalid">
+                      <div *ngFor="let error of errorMessages.date">
+                        <div *ngIf="f.date.hasError(error.type)">
+                          <small class="text-danger">{{ error.message }}</small>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="">Evaluacion Tutor:  </label>
+                    <select
+                      class="form-control"
+                      formControlName="evaluacionT"
+                    >
+                    <option value="1">A</option>
+                    <option value="2">B</option>
+                    <option value="3">C</option>
+                    <option value="3">D</option>
+                    </select>
+                    <div *ngIf="submitted && form.invalid">
+                      <div *ngFor="let error of errorMessages.evaluacionT">
+                        <div *ngIf="f.evaluacionT.hasError(error.type)">
+                          <small class="text-danger">{{ error.message }}</small>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="">Evaluacion Profesor:  </label>
+                    <select
+                      class="form-control"
+                      formControlName="evaluacionP"
+                    >
+                    <option value="1">A</option>
+                    <option value="2">B</option>
+                    <option value="3">C</option>
+                    <option value="3">D</option>
+                    </select>
+                    <div *ngIf="submitted && form.invalid">
+                      <div *ngFor="let error of errorMessages.evaluacionP">
+                        <div *ngIf="f.evaluacionP.hasError(error.type)">
+                          <small class="text-danger">{{ error.message }}</small>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              <div class="modal-footer bg-dark text-light mt-3">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-dismiss="modal"
+                  (click)="closeModal()"
+                >
+                  Close
+                </button>
+                <button type="submit" class="btn btn-primary">
+                  Save changes
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

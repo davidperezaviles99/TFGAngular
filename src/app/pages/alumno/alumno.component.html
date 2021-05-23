@@ -12,9 +12,9 @@
           <th>Name</th>
           <th>Lastname</th>
           <th>Email</th>
+          <th>Curso</th>
           <th>Tutor Asignado</th>
           <th>Profesor Asignado</th>
-          <th>Curso</th>
           <th>Edit</th>
           <th>Delete</th>
         </tr>
@@ -25,9 +25,13 @@
             <td>{{ alumno.name }}</td>
             <td>{{ alumno.lastname }}</td>
             <td>{{ alumno.email }}</td>
-            <td>{{ alumno.profesor.lastname}}</td>
-            <td>{{ alumno.tutor.lastname }}</td>
-            <td>{{ alumno.curso.name }}</td>
+            <td>{{ alumno.curso.numero }} - {{ alumno.curso.name }}</td>
+            <td>
+              <button (click)="openTutorModal(alumno)" class="btn btn-success">Tutor</button>
+            </td>
+            <td>
+              <button (click)="openProfesorModal(alumno)" class="btn btn-success">Profesor</button>
+            </td>
             <td>
               <button (click)="openModal(alumno)" class="btn btn-warning">
                 Edit
@@ -50,3 +54,17 @@
   (close)="closeModal($event)"
   (newAlumno)="updateAlumno($event)"
 ></app-alumno-crud>
+
+<app-tutor-modal
+  [showModal]="tutorModal"
+  [equipos]="equipos"
+  [alumnoId]="alumnoId"
+  (close)="closeTutorModal($event)"
+></app-tutor-modal>
+
+<app-profesor-modal
+  [showModal]="profesorModal"
+  [equipos]="equipos"
+  [alumnoId]="alumnoId"
+  (close)="closeProfesorModal($event)"
+></app-profesor-modal>

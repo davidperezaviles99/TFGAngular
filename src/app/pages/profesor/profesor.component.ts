@@ -68,7 +68,6 @@ public profesor = new Profesor();
     const index = this.profesors.findIndex((p) => p.id == profesor.id);
     if (index > -1) {
       this.profesors.splice(index, 1, profesor);
-      location.reload();
     } else {
       this.profesors.push(profesor);
       this.getProfesorList();

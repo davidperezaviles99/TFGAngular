@@ -13,6 +13,7 @@ export class AsignaturaCrudComponent implements OnInit {
 
   public form: FormGroup;
   public submitted = false;
+  
   public profesors: IProfesor[] = [];
 
   @Input() asignatura: IAsignaturas;
@@ -62,7 +63,9 @@ export class AsignaturaCrudComponent implements OnInit {
     }
   }
 
-  register(asignaturaData: IAsignaturas) {
+  register(values: any) {
+
+    const asignaturaData: IAsignaturas = values;
 
     this._materialService.registerAs(asignaturaData).subscribe(
       (resp) => {
@@ -75,7 +78,13 @@ export class AsignaturaCrudComponent implements OnInit {
     );
   }
 
-  update(asignaturaData: IAsignaturas) {
+    update(values: any) {
+
+    const { ...fields } = values;
+
+    const asignaturaData: IAsignaturas = JSON.parse(JSON.stringify(this.asignatura));
+
+    Object.assign(asignaturaData, fields)
 
     this._materialService.updateAs(asignaturaData).subscribe(
       (resp) => {
@@ -94,8 +103,7 @@ export class AsignaturaCrudComponent implements OnInit {
         '',
         [
           Validators.required,
-          Validators.maxLength(45),
-          Validators.minLength(2),
+          Validators.maxLength(3),
         ],
       ],
       name: [
@@ -117,8 +125,7 @@ export class AsignaturaCrudComponent implements OnInit {
   public errorMessages = {
     codigo: [
       { type: 'required', message: 'The Code is required' },
-      { type: 'maxlength', message: 'Maximum 45 characters' },
-      { type: 'minlength', message: 'Minimun 1 characters' },
+      { type: 'maxlength', message: 'Maximum 3 characters' },
     ],
     name: [
       { type: 'required', message: 'The name is required' },

@@ -43,8 +43,7 @@ export interface ICurso{
     id: number;
     numero: number;
     name: string;
-    asignaturas: IAsignaturas[];
-    alumno: IAlumno[];
+    asignatura: IAsignaturas;
 }
 
 export interface IAsignaturas{
@@ -52,4 +51,29 @@ export interface IAsignaturas{
     codigo: number;
     name: string;
     profesor: IProfesor;
+}
+
+export interface IEquipo{
+    id?: number;
+    alumnoId: number;
+    tutor: ITutor;
+    profesor: IProfesor;
+}
+
+export interface IDiario{
+    id?: number;
+    date: Date;
+    horas: number;
+    descripcion: string;
+    link: string;
+    equipo: IEquipo;
+    asignatura: IAsignaturas;
+}
+
+export interface IEvaluacion{
+    id?: number;
+    date: Date;
+    evaluacionT: string;
+    evaluacionP: string;
+    equipo: IEquipo;
 }
