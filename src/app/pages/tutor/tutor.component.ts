@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ITutor } from 'src/app/interfaces/interfaces';
 import { UsersService } from 'src/app/services/users.service';
 import { Tutor } from 'src/app/models/models';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -69,21 +70,51 @@ export class TutorComponent implements OnInit {
     const index = this.tutors.findIndex(o => o.id == tutor.id)
 
     if(index > -1) {
+      Swal.fire({
+        icon: 'success',
+        titleText: 'Success',
+        text: `Tutor actualizado`,
+        showCancelButton: false,
+        showConfirmButton: true,
+        confirmButtonText: 'Ok',
+        confirmButtonColor: '#17a2b8'
+      })
       this.tutors.splice(index, 1, tutor);
     } else {
+      Swal.fire({
+        icon: 'success',
+        titleText: 'Success',
+        text: `Tutor creado`,
+        showCancelButton: false,
+        showConfirmButton: true,
+        confirmButtonText: 'Ok',
+        confirmButtonColor: '#17a2b8'
+      })
       this.tutors.push(tutor);
       this.getTutorList();
     }
   }
 
   deletetutor(id: number) {
+    Swal.fire({
+      icon: 'question',
+      text: `¿Desea eliminar este Tutor?`,
+      showCancelButton: true,
+      cancelButtonText: 'Cancelar',
+      cancelButtonColor: '#17a2b8',
+      showConfirmButton: true,
+      confirmButtonText: 'Eliminar',
+      confirmButtonColor: '#dc3545'
+    }).then((result) => {
+      if(result.isConfirmed) {
     this._usersService.deleteT(id).subscribe(
       () => {
         this.getTutorList();
       },
       (err) => {
         console.log(err);
-      }
-    );
-  }
+      })
+    }
+  })
+}
 }

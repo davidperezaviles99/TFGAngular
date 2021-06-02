@@ -26,26 +26,30 @@ export class ProfesorModalComponent implements OnInit {
     const equipo: IEquipo = {
       alumnoId: this.alumnoId,
       profesor,
-      tutor: null,
     }
 
     this._equipoService.asignarProfesor(equipo).subscribe(resp => {
       this.equipos.push(resp)
-      console.log(resp)
     }, err => {
       console.log(err)
     })
   }
 
   checkProfesor(profesor: IProfesor): boolean {
-    const check = this.equipos.some(p => p.profesor.id == profesor.id)
+    const check = this.equipos.some(p => {
+      if(p.profesor != null){
+        return p.profesor.id == profesor.id;
+      }
+    })
 
     return check
   }
 
   deleteProfesor(equipo: IEquipo){
-    this._equipoService.delete(equipo).subscribe(resp => {
-      const index = this.equipos.findIndex(o => o.id == resp.id)
+    equipo.profesor = null;
+
+    this._equipoService.asignarProfesor(equipo).subscribe(resp => {
+      const index = this.equipos.findIndex(e => e.alumnoId == equipo.alumnoId)
       this.equipos.splice(index, 1)
     }, err => {
       console.log(err)

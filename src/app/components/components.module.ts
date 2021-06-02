@@ -13,6 +13,9 @@ import { DiarioCrudComponent } from './diario-crud/diario-crud.component';
 import { TutorModalComponent } from './tutor-modal/tutor-modal.component';
 import { ProfesorModalComponent } from './profesor-modal/profesor-modal.component';
 import { EvaluacionCrudComponent } from './evaluacion-crud/evaluacion-crud.component';
+import { MensajeCrudComponent } from './mensaje-crud/mensaje-crud.component';
+import { ProfileCrudComponent } from './profile-crud/profile-crud.component';
+
 
 
 
@@ -27,7 +30,9 @@ import { EvaluacionCrudComponent } from './evaluacion-crud/evaluacion-crud.compo
     DiarioCrudComponent,
     TutorModalComponent,
     ProfesorModalComponent,
-    EvaluacionCrudComponent
+    EvaluacionCrudComponent,
+    MensajeCrudComponent,
+    ProfileCrudComponent
   ],
   imports: [
     CommonModule,
@@ -44,7 +49,9 @@ import { EvaluacionCrudComponent } from './evaluacion-crud/evaluacion-crud.compo
     DiarioCrudComponent,
     TutorModalComponent,
     ProfesorModalComponent,
-    EvaluacionCrudComponent
+    EvaluacionCrudComponent,
+    MensajeCrudComponent,
+    ProfileCrudComponent
   ]
 })
 export class ComponentsModule { }

@@ -4,7 +4,7 @@ export interface ILogin {
 }
 
 export interface IUser {
-    id: string;
+    id: number;
     name: string;
     lastname: string;
     email: string;
@@ -35,8 +35,8 @@ export interface IAlumno{
     email: string;
     role: string;
     curso: ICurso;
-    profesor: IProfesor;
-    tutor: ITutor;
+    profesor?: IProfesor;
+    tutor?: ITutor;
 }
 
 export interface ICurso{
@@ -56,8 +56,9 @@ export interface IAsignaturas{
 export interface IEquipo{
     id?: number;
     alumnoId: number;
-    tutor: ITutor;
-    profesor: IProfesor;
+    alumno?: IAlumno;
+    tutor?: ITutor;
+    profesor?: IProfesor;
 }
 
 export interface IDiario{
@@ -66,6 +67,10 @@ export interface IDiario{
     horas: number;
     descripcion: string;
     link: string;
+    evaluacionT: string;
+    evaluacionP: string;
+    userId?: number;
+    user: IUser;
     equipo: IEquipo;
     asignatura: IAsignaturas;
 }
@@ -76,4 +81,20 @@ export interface IEvaluacion{
     evaluacionT: string;
     evaluacionP: string;
     equipo: IEquipo;
+}
+
+export interface IMensaje{
+    id: number;
+    comentario: string;
+    asunto: string;
+    name: string;
+    equipo: IEquipo;
+    userId?: number;
+    user: IUser;
+}
+
+export interface IConsulta{
+    id: number;
+    role: string;
+    
 }

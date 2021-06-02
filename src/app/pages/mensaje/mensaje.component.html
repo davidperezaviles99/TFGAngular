@@ -1,0 +1,44 @@
+<app-navbar></app-navbar>
+
+<div id="contenedor">
+  <div id="equipo">
+    <div *ngIf="equipos.length > 0" style="width: 30%;">
+      <ul  *ngFor="let equipo of equipos">
+        <li>
+          <a (click)="getMensajeID(equipo.id)">Equipo: {{equipo.id}} {{equipo.alumno.name}} {{alumno.lastname}}</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="mensaje">
+  <div class="row m-4 p-4">
+  <div class="col-7" style="width: 70%;" >
+  <div class="d-flex justify-content-between align-items-center">
+    <h1>Mensaje</h1> 
+  <button (click)="openModal()" class="btn btn-primary mb-3 float-right">
+    Añadir Mensaje
+  </button>
+  </div> 
+      <div class="col-md-4" *ngFor="let mensaje of mensajes "> 
+          <div class="card mb-3 animated zoomIn">
+              <h4 class="card-header">Nombre: {{ mensaje.name }}</h4>
+              <div class="card-body text-center">
+                <h5 class="card-title" style="margin-left: auto;">Asunto: {{ mensaje.asunto }}</h5>
+              </div>
+              <div class="card-body">
+              <h6 class="card-title"style="margin-left: auto;">Mensaje: {{ mensaje.comentario }}</h6>
+             </div>
+            </div>
+      </div>
+  </div>
+</div>
+</div>
+</div>
+
+<app-mensaje-crud
+  [showModal]="showModal"
+  [mensaje]="mensaje"
+  (close)="closeModal($event)"
+  (newMensaje)="updateMensaje($event)"
+></app-mensaje-crud>

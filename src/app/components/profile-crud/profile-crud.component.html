@@ -1,0 +1,89 @@
+<div class="myContainer" [class.myContainer]="!showModal">
+    <div class="modal mt-5" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="modal-header bg-dark text-light">
+              <h5 class="modal-title">Modificar perfil</h5>
+              <button
+                type="button"
+                class="close text-light"
+                data-dismiss="modal"
+                aria-label="Close"
+                (click)="closeModal()"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+              <div>
+                <input
+                  class="form-control mt-3"
+                  type="text"
+                  placeholder="Name"
+                  formControlName="name"
+                  [(ngModel)]="user.name"
+                />
+              </div>
+              <div *ngIf="submitted && form.invalid">
+                <div *ngFor="let error of errorMessages.name">
+                  <div *ngIf="f.name.hasError(error.type)">
+                    <small class="text-danger">{{ error.message }}</small>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <input
+                  class="form-control mt-3"
+                  type="text"
+                  placeholder="lastname"
+                  formControlName="lastname"
+                  [(ngModel)]="user.lastname"
+                />
+              </div>
+              <div *ngIf="submitted && form.invalid">
+                <div *ngFor="let error of errorMessages.lastname">
+                  <div *ngIf="f.lastname.hasError(error.type)">
+                    <small class="text-danger">{{ error.message }}</small>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <input
+                  class="form-control mt-3"
+                  type="email"
+                  placeholder="Email"
+                  formControlName="email"
+                  [(ngModel)]="user.email"
+                />
+              </div>
+              <div *ngIf="submitted && form.invalid">
+                <div *ngFor="let error of errorMessages.email">
+                  <div *ngIf="f.email.hasError(error.type)">
+                    <small class="text-danger">{{ error.message }}</small>
+                  </div>
+                </div>
+              </div>
+              <br>
+              <h3>Para ver los cambios guardados, sal y vuelve a entrar</h3>
+              <div class="modal-footer bg-dark text-light mt-3">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-dismiss="modal"
+                  (click)="closeModal()"
+                >
+                  Close
+                </button>
+                <button type="submit" class="btn btn-primary">
+                  Save changes
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+

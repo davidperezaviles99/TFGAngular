@@ -4,6 +4,7 @@ import { IAlumno, IEquipo, ITutor } from 'src/app/interfaces/interfaces';
 import { Alumno } from 'src/app/models/models';
 import { EquipoService } from 'src/app/services/equipo.service';
 import { UsersService } from 'src/app/services/users.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-alumno',
@@ -84,21 +85,51 @@ export class AlumnoComponent implements OnInit {
     const index = this.alumnos.findIndex(o => o.id == alumno.id)
 
     if(index > -1) {
+      Swal.fire({
+        icon: 'success',
+        titleText: 'Success',
+        text: `Alumno actualizado`,
+        showCancelButton: false,
+        showConfirmButton: true,
+        confirmButtonText: 'Ok',
+        confirmButtonColor: '#17a2b8'
+      })
       this.alumnos.splice(index, 1, alumno)
     } else {
+      Swal.fire({
+        icon: 'success',
+        titleText: 'Success',
+        text: `Alumno creado`,
+        showCancelButton: false,
+        showConfirmButton: true,
+        confirmButtonText: 'Ok',
+        confirmButtonColor: '#17a2b8'
+      })
       this.alumnos.push(alumno);
       this.getAlumnoList();
     }
   }
 
   deletealumno(id: number) {
+    Swal.fire({
+      icon: 'question',
+      text: `¿Desea eliminar este alumno?`,
+      showCancelButton: true,
+      cancelButtonText: 'Cancelar',
+      cancelButtonColor: '#17a2b8',
+      showConfirmButton: true,
+      confirmButtonText: 'Eliminar',
+      confirmButtonColor: '#dc3545'
+    }).then((result) => {
+      if(result.isConfirmed) {
     this._usersService.deleteA(id).subscribe(
       () => {
         this.getAlumnoList();
       },
       (err) => {
         console.log(err);
-      }
-    );
-  }
+      })
+    }
+  })
+}
 }

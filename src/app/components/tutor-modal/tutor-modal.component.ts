@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { IEquipo, ITutor } from 'src/app/interfaces/interfaces';
+import { IEquipo, IProfesor, ITutor } from 'src/app/interfaces/interfaces';
 import { EquipoService } from 'src/app/services/equipo.service';
 
 @Component({
@@ -20,34 +20,38 @@ export class TutorModalComponent implements OnInit {
   constructor(private _equipoService: EquipoService) { }
 
   ngOnInit(): void {
-    this.getTutor()
+    this.getTutor();
   }
 
   asignarTutor(tutor: ITutor){
     const equipo: IEquipo = {
       alumnoId: this.alumnoId,
       tutor,
-      profesor: null
     }
 
     this._equipoService.asignarTutor(equipo).subscribe(resp => {
       this.equipos.push(resp)
-      console.log(resp)
     }, err => {
       console.log(err)
     })
   }
 
   checkTutor(tutor: ITutor): boolean {
-    const check = this.equipos.some(t => t.tutor.id == tutor.id)
+    const check = this.equipos.some(t => {
+      if(t.tutor != null){
+        return t.tutor.id == tutor.id;
+      }
+    })
 
-    return check
+    return check;
   }
 
   deleteTutor(equipo: IEquipo){
-    this._equipoService.delete(equipo).subscribe(resp => {
-      const index = this.equipos.findIndex(o => o.id == resp.id)
-      this.equipos.splice(index, 1)
+    equipo.tutor = null;
+
+    this._equipoService.asignarTutor(equipo).subscribe(resp => {
+      const index = this.equipos.findIndex(e => e.alumnoId == equipo.alumnoId)
+      this.equipos.splice(index, 1);
     }, err => {
       console.log(err)
     })

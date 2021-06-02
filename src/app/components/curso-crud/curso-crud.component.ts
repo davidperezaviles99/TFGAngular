@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IAlumno, IAsignaturas, ICurso } from 'src/app/interfaces/interfaces';
+import { IAsignaturas, ICurso } from 'src/app/interfaces/interfaces';
 import { MaterialService } from 'src/app/services/material.service';
 import { UsersService } from 'src/app/services/users.service';
 

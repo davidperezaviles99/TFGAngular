@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { IDiario, IEvaluacion } from 'src/app/interfaces/interfaces';
-import { Diario, Evaluacion } from 'src/app/models/models';
+import { Component, Input, OnInit } from '@angular/core';
+import { IAlumno, IConsulta, IDiario, IEquipo, IEvaluacion, IProfesor, ITutor, IUser } from 'src/app/interfaces/interfaces';
+import { Alumno, Diario, Evaluacion, Profesor, Tutor } from 'src/app/models/models';
 import { DiarioService } from 'src/app/services/diario.service';
+import { EquipoService } from 'src/app/services/equipo.service';
+import { UsersService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'app-diario',
@@ -12,23 +14,113 @@ export class DiarioComponent implements OnInit {
   public showModal = false;
   public showEvaluacionModal = false;
 
-  public diarios: IDiario[] = [];
-  public evaluacions: IEvaluacion[] = [];
+  roles = ['Alumno', 'Profesor','Tutor'];
 
+  public diarios: IDiario[] = []; 
   public diario = new Diario();
-  public evaluacion = new Evaluacion();
+
+  public alumnos: IAlumno[] = [];
+  public alumno = new Alumno();
+
+  public tutors: ITutor[] = [];
+  public tutor = new Tutor();
+
+  public profesors: IProfesor[] = [];
+  public profesor = new Profesor();
+
+
+  public equipos: IEquipo[] = [];
+  public equipo: IEquipo;
   
-  constructor(public _diarioService: DiarioService) { }
+  public evaluacions: IEvaluacion[] = [];
+  public evaluacion = new Evaluacion();
+
+  public user: IUser;
+ 
+  constructor(public _diarioService: DiarioService, public _usersService: UsersService, private _equipoService: EquipoService) { }
 
   ngOnInit(): void {
-    this.getDiarioList();
-    this.getEvaluacionList();
+    this.user = JSON.parse(localStorage.getItem('user'));
+    this.equipo = JSON.parse(localStorage.getItem('equipo'));
+    // this.getEvaluacionList();
+    this.getUser();
+    // this.getAlumnoList();
+    // this.getEquipoList();
+    this.getConsulta();
+    this.getDiarios();
   }
 
-  getDiarioList() {
-    this._diarioService.getDiarioList().subscribe(
+  getUser(){
+    this.user = this._usersService.getUser();
+  }
+
+  // getEquipoList() {
+  //   this._equipoService.getEquipoList().subscribe(
+  //     (resp) => {
+  //       this.equipos = resp;
+  //     },
+  //     (err) => {
+  //       console.log(err);
+  //     }
+  //   );
+  // }
+
+  // getAlumnoList() {
+  //   this._usersService.getAlumnoList().subscribe(
+  //     (resp) => {
+  //       this.alumnos = resp;
+  //     },
+  //     (err) => {
+  //       console.log(err);
+  //     }
+  //   );
+  // }
+
+  // getEquipoID(id: number){
+
+  //   this._equipoService.getEquipoID(id).subscribe(
+  //     (resp) => {
+  //       this.equipo = resp;
+  //       console.log(resp)
+  //       this.getDiarioList(this.equipo.id);
+  //     },
+  //     (err) => {
+  //       console.log(err);
+  //     }
+  //   );
+  // }
+
+  getDiarios(){
+    this._diarioService.getDiarios(this.user.id).subscribe(
       (resp) => {
         this.diarios = resp;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+  //     (resp) => {
+  //       this.diario = resp;
+  //       const index = this.diarios.findIndex(d => d.id == resp.id);
+  //       if(index == -1) {
+  //         this.diarios.push(resp);
+  //       }
+  //     },
+  //     (err) => {
+  //       console.log(err);
+  //     }
+  //   );
+  // }
+
+  getDiarioID(id: number) {
+    this._diarioService.getEquipoDiarioID(id).subscribe(
+      (resp) => {
+        this.diarios = resp;
+        // const index = this.diarios.findIndex(d => d.id == resp.id);
+        // if(index == -1) {
+        // this.diarios.push(resp);
+        // }
       },
       (err) => {
         console.log(err);
@@ -47,54 +139,48 @@ export class DiarioComponent implements OnInit {
     );
   }
 
-  closeModal(showModal: boolean, type: string) {
-    switch (type) {
-      case 'evaluacion':
-        this.evaluacion = new Evaluacion();
-        this.showEvaluacionModal = showModal;
-        break;
-      case 'diario':
-        this.diario = new Diario();
-        this.showModal = showModal;
-        break;
-      default:
-        break;
+  openModal(diario?: IDiario){
+    if(diario){
+      this.diario = JSON.parse(JSON.stringify(diario))
     }
+    this.showModal = true;
   }
 
-  openModal(
-    type: string,
-    evaluacion?: IEvaluacion,
-    diario?: IDiario
-  ) {
-    switch (type) {
-      case 'evaluacion':
-        this.evaluacion = { ...evaluacion };
-        this.showEvaluacionModal = true;
-        break;
-      case 'diario':
-        this.showModal = true;
-        break;
-      default:
-        break;
+  closeModal(showModal: boolean) {
+    this.diario = new Diario();
+    this.showModal = showModal;
+  }
+
+  openEvalModal(evaluacion?: IEvaluacion){
+    if(evaluacion){
+      this.evaluacion = JSON.parse(JSON.stringify(evaluacion))
     }
+    this.showEvaluacionModal = true;
+  }
+
+  closeEvalModal(showModal: boolean) {
+    this.evaluacion = new Evaluacion();
+    this.showEvaluacionModal = showModal;
   }
 
   updateDiario(diario: IDiario) {
-    const index = this.diarios.findIndex(o => o.id == diario.id)
+    const index = this.diarios.findIndex((d) => d.id == diario.id)
 
     if(index > -1) {
       this.diarios.splice(index, 1, diario);
+      this.getDiarios();
     } else {
       this.diarios.push(diario);
-      this.getDiarioList();
+      this.getDiarioID(this.equipo.id);
+      this.getDiarios();
     }
   }
 
   deletediario(id: number) {
     this._diarioService.deleteD(id).subscribe(
       () => {
-        this.getDiarioList();
+        this.getDiarios();
+        this.getDiarioID(this.equipo.id);
       },
       (err) => {
         console.log(err);
@@ -103,7 +189,7 @@ export class DiarioComponent implements OnInit {
   }
 
   updateEvaluacion(evaluacion: IEvaluacion) {
-    const index = this.evaluacions.findIndex(o => o.id == this.evaluacion.id)
+    const index = this.evaluacions.findIndex(o => o.id == evaluacion.id)
 
     if(index > -1) {
       this.evaluacions.splice(index, 1, evaluacion);
@@ -112,6 +198,7 @@ export class DiarioComponent implements OnInit {
       this.getEvaluacionList();
     }
   }
+
 
   deleteevaluacion(id: number) {
     this._diarioService.deleteE(id).subscribe(
@@ -124,5 +211,14 @@ export class DiarioComponent implements OnInit {
     );
   }
 
+  getConsulta(){
+    const Consulta: IConsulta = {
+      id: this.user.id,
+      role: this.user.role
+    }
+    this._equipoService.getConsulta(Consulta).subscribe(resp =>{
+      this.equipos = resp;
+    })
+  }
 
 }

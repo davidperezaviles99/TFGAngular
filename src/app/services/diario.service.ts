@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { IDiario, IEvaluacion } from '../interfaces/interfaces';
 
@@ -16,6 +17,20 @@ export class DiarioService {
     return this._http.get<IDiario[]>(`${environment.base_url}/Diarios`)
   }
 
+  getDiarioID(id: number): Observable<IDiario>{
+    return this._http.get<IDiario>(`${environment.base_url}/Diarios/${id}`)
+  }
+
+  getDiarios(id: number) {
+    return this._http.get<IDiario[]>(`${environment.base_url}/Diarios/getUserDiario/${id}`
+    )
+    .pipe(tap((resp) => resp.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())));
+  }
+
+  getEquipoDiarioID(id: number) {
+    return this._http.get<IDiario[]>(`${environment.base_url}/Diarios/getEquipoDiario/${id}`)
+  }
+
   registerD(asignaturaData: IDiario): Observable<IDiario> {
     return this._http.post<IDiario>(`${environment.base_url}/Diarios/create`, asignaturaData)
   }
@@ -26,10 +41,6 @@ export class DiarioService {
 
   deleteD(id: number): Observable<IDiario> {
     return this._http.delete<IDiario>(`${environment.base_url}/Diarios/${id}`)
-  }
-
-  getDiario(): IDiario {
-    return JSON.parse(localStorage.getItem('diario'))
   }
 
   getEvaluacionList(): Observable<IEvaluacion[]>{

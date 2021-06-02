@@ -26,7 +26,15 @@ export class UsersService {
 
     getUser(): IUser {
         return JSON.parse(localStorage.getItem('user'))
-   }
+    }
+
+    getUserList(): Observable<IUser[]> {
+      return this._http.get<IUser[]>(`${environment.base_url}/Users`)
+    }
+
+    updateU(userData: IUser): Observable<IUser> {
+      return this._http.put<IUser>(`${environment.base_url}/Users`, userData)
+    }
 
    registerP(profesorData: IProfesor): Observable<IProfesor> {
     return this._http.post<IProfesor>(`${environment.base_url}/Profesors/create`, profesorData)
@@ -87,7 +95,7 @@ export class UsersService {
   }
 
   getAlumno(): IAlumno {
-    return JSON.parse(localStorage.getItem('alumnos'))
+    return JSON.parse(localStorage.getItem('alumno'))
   }
    
   logout() {

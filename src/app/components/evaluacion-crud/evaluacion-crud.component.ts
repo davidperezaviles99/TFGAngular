@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IEvaluacion } from 'src/app/interfaces/interfaces';
+import { IEvaluacion, IUser } from 'src/app/interfaces/interfaces';
 import { DiarioService } from 'src/app/services/diario.service';
+import { UsersService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'app-evaluacion-crud',
@@ -9,23 +10,32 @@ import { DiarioService } from 'src/app/services/diario.service';
   styleUrls: ['./evaluacion-crud.component.css']
 })
 export class EvaluacionCrudComponent implements OnInit {
-
   public form: FormGroup;
   public submitted = false;
 
+  roles = ['Alumno', 'Profesor','Tutor'];
+
+  public user: IUser;
+
   @Input() showModal: boolean;
   @Input() evaluacion: IEvaluacion;
-  @Input() evaluacions: IEvaluacion[];
   @Output() close: EventEmitter<boolean> = new EventEmitter();
   @Output() newEvaluacion: EventEmitter<IEvaluacion> = new EventEmitter();
 
-  constructor(private _diarioService: DiarioService, private _formBuilder: FormBuilder) { }
+  constructor(private _diarioService: DiarioService, 
+    private _formBuilder: FormBuilder, 
+    private _usersService: UsersService) { }
 
   ngOnInit(): void {
     this.createForm();
+    this.getUser();
+  }
+
+  getUser(){
+    this.user = this._usersService.getUser();
   }
   
-  closeModal() {
+  closeEvalModal() {
     this.form.reset();
     this.submitted = false;
     this.close.emit(false);
@@ -52,7 +62,7 @@ export class EvaluacionCrudComponent implements OnInit {
     this._diarioService.registerE(evaluacionData).subscribe(
       (resp) => {
         this.newEvaluacion.emit(resp);
-        this.closeModal()
+        this.closeEvalModal()
       },
       (err) => {
         console.log(err);
@@ -71,7 +81,7 @@ export class EvaluacionCrudComponent implements OnInit {
     this._diarioService.updateE(evaluacionData).subscribe(
       (resp) => {
         this.newEvaluacion.emit(resp);
-        this.closeModal()
+        this.closeEvalModal()
       },
       (err) => {
         console.log(err);
@@ -81,9 +91,9 @@ export class EvaluacionCrudComponent implements OnInit {
 
   createForm() {
     this.form = this._formBuilder.group({
-      date: ['',[Validators.required,],],
-      evaluacionT: ['', [Validators.required]],
-      evaluacionP: ['', [Validators.required]],
+      date: [''],
+      evaluacionT: [''],
+      evaluacionP: [''],
     });
   }
 
@@ -92,8 +102,6 @@ export class EvaluacionCrudComponent implements OnInit {
   }
 
   public errorMessages = {
-    date: [{ type: 'required', message: 'The Date is required' }],
-    evaluacionT: [{ type: 'required', message: 'The Date is required' }],
-    evaluacionP: [{ type: 'required', message: 'The Date is required' }],
+    
   };
 }

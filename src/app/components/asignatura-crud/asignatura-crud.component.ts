@@ -10,7 +10,6 @@ import { UsersService } from 'src/app/services/users.service';
   styleUrls: ['./asignatura-crud.component.css']
 })
 export class AsignaturaCrudComponent implements OnInit {
-
   public form: FormGroup;
   public submitted = false;
   
@@ -80,12 +79,11 @@ export class AsignaturaCrudComponent implements OnInit {
 
     update(values: any) {
 
-    const { ...fields } = values;
+      const { ...fields } = values;
 
     const asignaturaData: IAsignaturas = JSON.parse(JSON.stringify(this.asignatura));
 
     Object.assign(asignaturaData, fields)
-
     this._materialService.updateAs(asignaturaData).subscribe(
       (resp) => {
         this.newAsignatura.emit(resp);

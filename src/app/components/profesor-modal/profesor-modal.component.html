@@ -47,8 +47,8 @@
               <h5>Profesor asignado:</h5>
               <div *ngFor="let equipo of equipos" class="alert alert-secondary mt-3" role="alert">
                 <div class="d-flex justify-content-between align-items-center">
-                  <strong>{{equipo.profesor.name}} - {{equipo.profesor.lastname}}</strong>
-                  <button (click)="deleteProfesor(equipo)" class="btn btn-danger">Eliminar</button>
+                  <strong *ngIf="equipo.profesor">{{equipo.profesor.name}} - {{equipo.profesor.lastname}}</strong>
+                  <button (click)="deleteProfesor(equipo)" class="btn btn-danger">Limpiar</button>
                   </div>
               </div>
             </div>

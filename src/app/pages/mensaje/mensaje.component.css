@@ -1,0 +1,13 @@
+#contenedor {
+    width: 100%;
+  }
+
+  #equipo {
+    float: left;
+    width: 20%;
+  }
+
+  #mensaje {
+    float: left;
+    width: 80%;
+  }

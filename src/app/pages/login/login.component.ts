@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ILogin } from '../../interfaces/interfaces';
 import { UsersService } from 'src/app/services/users.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -43,11 +44,20 @@ export class LoginComponent implements OnInit {
     this._usersService.login(operatorData).subscribe(
       () => {
         this.submitted = false;
-        this.form.reset()
+        this.form.reset();
         this._router.navigateByUrl('/home')
       },
       (err) => {
         console.log(err);
+        Swal.fire({
+          icon: 'error',
+          titleText: 'error',
+          text: `Credenciales incorrectas`,
+          showCancelButton: false,
+          showConfirmButton: true,
+          confirmButtonText: 'Ok',
+          confirmButtonColor: '#17a2b8'
+        })
       }
     );
   }

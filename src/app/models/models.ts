@@ -1,4 +1,4 @@
-import { IAlumno, IAsignaturas, ICurso, IDiario, IEquipo, IEvaluacion, IProfesor, ITutor } from "../interfaces/interfaces";
+import { IAlumno, IAsignaturas, ICurso, IDiario, IEquipo, IEvaluacion, IMensaje, IProfesor, ITutor, IUser } from "../interfaces/interfaces";
 
 export class Profesor implements IProfesor{
     id: number;
@@ -123,6 +123,9 @@ export class Diario implements IDiario{
     horas: number;
     descripcion: string;
     link: string;
+    evaluacionT: string;
+    evaluacionP: string;
+    user: IUser;
     equipo: IEquipo;
     asignatura: IAsignaturas;
     constructor(
@@ -131,6 +134,9 @@ export class Diario implements IDiario{
         horas: number = null,
         descripcion: string = null,
         link: string = null,
+        evaluacionT: string = null,
+        evaluacionP: string = null,
+        user: IUser = { id: null, name: null, lastname: null, email: null, role: null},
         equipo: IEquipo = { id: null, alumnoId: null, profesor: null, tutor: null},
         asignatura: IAsignaturas = { id: null, name: null, codigo: null, profesor: null},
     ){
@@ -139,6 +145,9 @@ export class Diario implements IDiario{
         this.horas = horas;
         this.descripcion = descripcion;
         this.link = link;
+        this.evaluacionT = evaluacionT;
+        this.evaluacionP = evaluacionP;
+        this.user = user;
         this.equipo = equipo;
         this.asignatura = asignatura;
     }
@@ -163,6 +172,75 @@ export class Evaluacion implements IEvaluacion{
         this.evaluacionT = evaluacionT;
         this.evaluacionP = evaluacionP;
         this.equipo = equipo;
+    }
+}
+
+export class User implements IUser{
+    id: number;
+    name: string;
+    lastname: string;
+    email: string;
+    role: string;
+
+    constructor(
+        id: number = null,
+        name: string = null,
+        lastname: string = null,
+        email: string = null,
+        role: string = null,
+    ){
+        this.id = id;
+        this.name = name;
+        this.lastname = lastname;
+        this.email = email;
+        this.role = role;
+    }
+}
+
+export class Mensaje implements IMensaje{
+    id: number;
+    comentario: string;
+    asunto: string;
+    name: string;
+    equipo: IEquipo;
+    user: IUser;
+    constructor(
+        id: number = null,
+        comentario: string = null,
+        asunto: string = null,
+        name: string = null,
+        equipo: IEquipo = { id: null, alumnoId: null, profesor: null, tutor: null},
+        user: IUser = { id: null, name: null, lastname: null, email: null, role: null},
+    ){
+        this.id = id;
+        this.comentario = comentario;
+        this.asunto = asunto;
+        this.name = name;
+        this.equipo = equipo;
+        this.user = user;        
+    }
+    
+}
+
+export class Equipo implements IEquipo{
+    id?: number;
+    alumnoId: number;
+    alumno?: IAlumno;
+    tutor?: ITutor;
+    profesor?: IProfesor;
+    constructor(
+        id: number = null,
+        alumnoId: number = null,
+        alumno: IAlumno = { id: null, name: null, lastname: null, email: null, role: null, curso: null},
+        tutor: ITutor = { id: null, name: null, lastname: null, email: null, nombreEmpresa: null, role: null},
+        profesor: IProfesor = { id: null, name: null, lastname: null, email: null, role: null},
+    ){
+        this.id = id;
+        this.alumnoId = alumnoId;
+        this.alumno = alumno;
+        this.tutor = tutor;
+        this.profesor = profesor;
+        
     }
 }
 

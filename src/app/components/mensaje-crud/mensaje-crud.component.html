@@ -1,0 +1,108 @@
+<div class="myContainer" [class.myContainer]="!showModal">
+    <div class="modal mt-5" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="modal-header bg-dark text-light">
+              <h5 class="modal-title">Crear curso</h5>
+              <button
+                type="button"
+                class="close text-light"
+                data-dismiss="modal"
+                aria-label="Close"
+                (click)="closeModal()"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+              <div>
+                <input
+                  class="form-control mt-3"
+                  type="text"
+                  placeholder="Nombre"
+                  formControlName="name"
+                  [(ngModel)]="mensaje.name"
+                />
+              </div>
+              <div *ngIf="submitted && form.invalid">
+                <div *ngFor="let error of errorMessages.name">
+                  <div *ngIf="f.name.hasError(error.type)">
+                    <small class="text-danger">{{ error.message }}</small>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <input
+                  class="form-control mt-3"
+                  type="text"
+                  placeholder="Asunto"
+                  formControlName="asunto"
+                  [(ngModel)]="mensaje.asunto"
+                />
+              </div>
+              <div *ngIf="submitted && form.invalid">
+                <div *ngFor="let error of errorMessages.asunto">
+                  <div *ngIf="f.asunto.hasError(error.type)">
+                    <small class="text-danger">{{ error.message }}</small>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <input
+                  class="form-control mt-3"
+                  type="text"
+                  placeholder="Comentario"
+                  formControlName="comentario"
+                  [(ngModel)]="mensaje.comentario"
+                />
+              </div>
+              <div *ngIf="submitted && form.invalid">
+                <div *ngFor="let error of errorMessages.comentario">
+                  <div *ngIf="f.comentario.hasError(error.type)">
+                    <small class="text-danger">{{ error.message }}</small>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="">Elige tu equipo:  <span *ngIf="mensaje.equipo.id" class="badge badge-dark">{{mensaje.equipo.id}}</span> </label>
+                <select
+                  class="form-control"
+                  formControlName="equipo"
+                >
+                  <option
+                    *ngFor="let equipo of equipos"
+                    [value]="equipo.id"
+                  >
+                  {{ equipo.alumno.name}} {{equipo.alumno.lastname}}
+                  </option>
+                </select>
+                <div *ngIf="submitted && form.invalid">
+                  <div *ngFor="let error of errorMessages.equipo">
+                    <div *ngIf="f.equipo.hasError(error.type)">
+                      <small class="text-danger">{{ error.message }}</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer bg-dark text-light mt-3">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-dismiss="modal"
+                  (click)="closeModal()"
+                >
+                  Close
+                </button>
+                <button type="submit" class="btn btn-primary">
+                  Save changes
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  

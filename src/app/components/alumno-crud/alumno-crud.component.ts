@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IAlumno, ICurso, IProfesor, ITutor } from 'src/app/interfaces/interfaces';
+import { EquipoService } from 'src/app/services/equipo.service';
 import { MaterialService } from 'src/app/services/material.service';
 import { UsersService } from 'src/app/services/users.service';
 
@@ -17,7 +18,7 @@ export class AlumnoCrudComponent implements OnInit {
   // public profesors: IProfesor[] = [];
   public cursos: ICurso[] = [];
 
-  public roles = [ 'Alumno'];
+  public roles = ['Alumno'];
 
   @Input() alumno: IAlumno;
   @Input() showModal: boolean;
@@ -27,7 +28,8 @@ export class AlumnoCrudComponent implements OnInit {
   constructor(
     private _usersService: UsersService,
     private _formBuilder: FormBuilder,
-    private _materialService: MaterialService
+    private _materialService: MaterialService,
+    private _equipoService: EquipoService,
   ) { }
 
   ngOnInit(): void {
@@ -101,6 +103,7 @@ export class AlumnoCrudComponent implements OnInit {
     this._usersService.registerA(alumnoData).subscribe(
       (resp) => {
         this.newAlumno.emit(resp);
+        this._equipoService.createEquipo(resp).subscribe();
         this.closeModal()
       },
       (err) => {

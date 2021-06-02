@@ -5,3 +5,11 @@
 .modal {
     display: block;
 }
+
+.container{
+    display: flex;
+}
+
+ul{
+    display: flex;
+}

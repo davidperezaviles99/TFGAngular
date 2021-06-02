@@ -1,0 +1,30 @@
+.list-group{
+    margin-left: 50px;
+    margin-right: 50px;
+    background-color: #eeeee4;
+}
+
+a{
+    color: blue;
+    text-decoration: underline;
+
+}
+
+a:focus{
+    cursor: pointer;
+    color: red;
+}
+
+#contenedor {
+    width: 100%;
+  }
+
+  #equipo {
+    float: left;
+    width: 20%;
+  }
+
+  #diario {
+    float: left;
+    width: 80%;
+  }

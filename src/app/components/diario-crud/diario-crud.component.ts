@@ -1,8 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IAsignaturas, IDiario } from 'src/app/interfaces/interfaces';
+import { IAsignaturas, IDiario, IEquipo, IUser } from 'src/app/interfaces/interfaces';
+import { Asignaturas, Equipo, User } from 'src/app/models/models';
 import { DiarioService } from 'src/app/services/diario.service';
+import { EquipoService } from 'src/app/services/equipo.service';
 import { MaterialService } from 'src/app/services/material.service';
+import { UsersService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'app-diario-crud',
@@ -14,17 +17,53 @@ export class DiarioCrudComponent implements OnInit {
   public submitted = false;
 
   public asignaturas: IAsignaturas[] = [];
+  public users: IUser[] = [];
+  public equipos: IEquipo[] = [];
+
+  roles = ['Alumno', 'Profesor','Tutor']
+
+  public user = new User();
+  public asignatura = new Asignaturas();
+  public equipo = new Equipo();
 
   @Input() diario: IDiario;
   @Input() showModal: boolean;
   @Output() close: EventEmitter<boolean> = new EventEmitter();
   @Output() newDiario: EventEmitter<IDiario> = new EventEmitter();
 
-  constructor(private _diarioService: DiarioService, private _formBuilder: FormBuilder, private _materialService: MaterialService) { }
+  constructor(private _diarioService: DiarioService, 
+    private _formBuilder: FormBuilder, 
+    private _materialService: MaterialService,
+    private _usersService: UsersService,
+    private _equipoService: EquipoService) { }
 
   ngOnInit(): void {
     this.createForm();
     this.getAsignaturaList();
+    this.user = JSON.parse(localStorage.getItem('user'));
+    this.getUser();
+    // this.equipo = JSON.parse(localStorage.getItem('equipo'));
+    // this.getEquipo();
+    this.getEquipoList();
+  }
+
+  // getEquipo(){
+  //   this.equipo = this._equipoService.getEquipo();
+  // }
+
+  getUser(){
+    this.user = this._usersService.getUser();
+  }
+
+  getEquipoList(){
+    this._equipoService.getEquipoList().subscribe(
+      (resp) => {
+        this.equipos = resp;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
   getAsignaturaList(){
@@ -51,7 +90,9 @@ export class DiarioCrudComponent implements OnInit {
 
     const fields = this.form.value;
 
-    fields.asignatura = this.asignaturas.find((p) => p.id == fields.asignatura);
+    fields.asignatura = this.asignaturas.find((a) => a.id == fields.asignatura);
+
+    fields.equipo = this.equipos.find((e) => e.id == fields.equipo);
 
     if (this.diario.id) {
       this.update(fields);
@@ -62,7 +103,8 @@ export class DiarioCrudComponent implements OnInit {
 
   register(values: any) {
 
-    const diarioData: IDiario = values;
+    const diarioData: IDiario =  values;
+    diarioData.userId = this.user.id;
 
     this._diarioService.registerD(diarioData).subscribe(
       (resp) => {
@@ -120,7 +162,22 @@ export class DiarioCrudComponent implements OnInit {
           Validators.minLength(3),
         ],
       ],
-      asignatura: ['', [Validators.required]],
+      evaluacionT: ['', 
+      [
+        Validators.pattern('^[a-zA-Z]+$'), 
+        Validators.maxLength(1), 
+        Validators.minLength(1),
+      ],
+      ],
+      evaluacionP: ['', 
+      [
+        Validators.pattern('^[a-zA-Z]+$'), 
+        Validators.maxLength(1), 
+        Validators.minLength(1),
+      ],
+      ],
+      asignatura: [''],
+      equipo: [''],
     });
   }
 
@@ -144,7 +201,18 @@ export class DiarioCrudComponent implements OnInit {
       { type: 'maxlength', message: 'Maximum 150 characters' },
       { type: 'minlength', message: 'Minimun 3 characters' },
     ],
+    evaluacionT: [
+      { type: 'pattern', message: 'Evaluacion must contain 1 letter'},
+      { type: 'maxlength', message: 'Maximum 1 characters' },
+      { type: 'minlength', message: 'Minimun 1 characters' },
+    ],
+    evaluacionP: [
+      { type: 'pattern', message: 'Evaluacion must contain 1 letter'},
+      { type: 'maxlength', message: 'Maximum 1 characters' },
+      { type: 'minlength', message: 'Minimun 1 characters' },
+    ],
     asignatura: [{ type: 'required', message: 'Choose one' }],
+    equipo: [{ type: 'required', message: 'Choose one' }],
   };
 
 }

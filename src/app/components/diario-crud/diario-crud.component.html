@@ -1,119 +1,170 @@
 <div class="myContainer" [class.myContainer]="!showModal">
-    <div class="modal mt-5" tabindex="-1">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-body">
-            <div class="modal-header bg-dark text-light">
-              <h5 class="modal-title">Crear diario</h5>
+  <div class="modal mt-5" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="modal-header bg-dark text-light">
+            <h5 class="modal-title">Crear Tarea</h5>
+            <button
+              type="button"
+              class="close text-light"
+              data-dismiss="modal"
+              aria-label="Close"
+              (click)="closeModal()"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div>
+              <input type="date" placeholder="Fecha" displayFormat="MMM DD, YYYY" formControlName="date">
+            </div>
+            <div *ngIf="submitted && form.invalid">
+              <div *ngFor="let error of errorMessages.date">
+                <div *ngIf="f.date.hasError(error.type)">
+                  <small class="text-danger">{{ error.message }}</small>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="user.role === 'Alumno'">
+              <input
+                class="form-control mt-3"
+                type="number"
+                placeholder="horas"
+                formControlName="horas"
+                [(ngModel)]="diario.horas"
+              />
+            </div>
+            <div *ngIf="submitted && form.invalid">
+              <div *ngFor="let error of errorMessages.horas">
+                <div *ngIf="f.horas.hasError(error.type)">
+                  <small class="text-danger">{{ error.message }}</small>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="user.role === 'Alumno'" > 
+              <input
+                class="form-control mt-3"
+                type="text"
+                placeholder="descripcion"
+                formControlName="descripcion"
+                [(ngModel)]="diario.descripcion"
+              />
+            </div>
+            <div *ngIf="submitted && form.invalid">
+              <div *ngFor="let error of errorMessages.descripcion">
+                <div *ngIf="f.descripcion.hasError(error.type)">
+                  <small class="text-danger">{{ error.message }}</small>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="user.role === 'Alumno'">
+              <input
+                class="form-control mt-3"
+                type="text"
+                placeholder="link"
+                formControlName="link"
+                [(ngModel)]="diario.link"
+              />
+            </div>
+            <div *ngIf="submitted && form.invalid">
+              <div *ngFor="let error of errorMessages.link">
+                <div *ngIf="f.link.hasError(error.type)">
+                  <small class="text-danger">{{ error.message }}</small>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="user.role === 'Tutor'">
+              <input
+                class="form-control mt-3"
+                type="text"
+                placeholder="evaluacionT"
+                formControlName="evaluacionT"
+                [(ngModel)]="diario.evaluacionT"
+              />
+            </div>
+            <div *ngIf="submitted && form.invalid">
+              <div *ngFor="let error of errorMessages.evaluacionT">
+                <div *ngIf="f.evaluacionT.hasError(error.type)">
+                  <small class="text-danger">{{ error.message }}</small>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="user.role === 'Profesor'">
+              <input
+                class="form-control mt-3"
+                type="text"
+                placeholder="evaluacionP"
+                formControlName="evaluacionP"
+                [(ngModel)]="diario.evaluacionP"
+              />
+            </div>
+            <div *ngIf="submitted && form.invalid">
+              <div *ngFor="let error of errorMessages.evaluacionP">
+                <div *ngIf="f.evaluacionP.hasError(error.type)">
+                  <small class="text-danger">{{ error.message }}</small>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="user.role === 'Alumno'" class="form-group">
+              <label class="">Asignatura Asignado:  <span *ngIf="diario.asignatura.name" class="badge badge-dark">{{diario.asignatura.name}}</span> </label>
+              <select
+                class="form-control"
+                formControlName="asignatura"
+              >
+                <option
+                  *ngFor="let asignatura of asignaturas"
+                  [value]="asignatura.id"
+                >
+                {{ asignatura.name}}
+                </option>
+              </select>
+              <div *ngIf="submitted && form.invalid">
+                <div *ngFor="let error of errorMessages.asignatura">
+                  <div *ngIf="f.asignatura.hasError(error.type)">
+                    <small class="text-danger">{{ error.message }}</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="user.role === 'Alumno'" class="form-group">
+              <label class="">Elige tu equipo:  <span *ngIf="diario.equipo.id" class="badge badge-dark">{{diario.equipo.id}}</span> </label>
+              <select
+                class="form-control"
+                formControlName="equipo"
+              >
+                <option
+                  *ngFor="let equipo of equipos"
+                  [value]="equipo.id"
+                >
+                {{ equipo.alumno.name}} {{equipo.alumno.lastname}}
+                </option>
+              </select>
+              <div *ngIf="submitted && form.invalid">
+                <div *ngFor="let error of errorMessages.equipo">
+                  <div *ngIf="f.equipo.hasError(error.type)">
+                    <small class="text-danger">{{ error.message }}</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer bg-dark text-light mt-3">
               <button
                 type="button"
-                class="close text-light"
+                class="btn btn-secondary"
                 data-dismiss="modal"
-                aria-label="Close"
                 (click)="closeModal()"
               >
-                <span aria-hidden="true">&times;</span>
+                Close
+              </button>
+              <button type="submit" class="btn btn-primary">
+                Save changes
               </button>
             </div>
-            <form [formGroup]="form" (ngSubmit)="onSubmit()">
-            <div>
-              <div>
-                <input type="date" placeholder="Fecha" displayFormat="MMM DD, YYYY" formControlName="date">
-              </div>
-              <div *ngIf="submitted && form.invalid">
-                <div *ngFor="let error of errorMessages.date">
-                  <div *ngIf="f.date.hasError(error.type)">
-                    <small class="text-danger">{{ error.message }}</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-              <div class="form-group">
-                <label class="">Asignatura Asignado:  <span *ngIf="diario.asignatura.name" class="badge badge-dark">{{diario.asignatura.name}}</span> </label>
-                <select
-                  class="form-control"
-                  formControlName="asignatura"
-                >
-                  <option
-                    *ngFor="let asignatura of asignaturas"
-                    [value]="asignatura.id"
-                  >
-                  {{ asignatura.name}}
-                  </option>
-                </select>
-                <div *ngIf="submitted && form.invalid">
-                  <div *ngFor="let error of errorMessages.asignatura">
-                    <div *ngIf="f.asignatura.hasError(error.type)">
-                      <small class="text-danger">{{ error.message }}</small>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <input
-                  class="form-control mt-3"
-                  type="text"
-                  placeholder="descripcion"
-                  formControlName="descripcion"
-                  [(ngModel)]="diario.descripcion"
-                />
-              </div>
-              <div *ngIf="submitted && form.invalid">
-                <div *ngFor="let error of errorMessages.descripcion">
-                  <div *ngIf="f.descripcion.hasError(error.type)">
-                    <small class="text-danger">{{ error.message }}</small>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <input
-                  class="form-control mt-3"
-                  type="number"
-                  placeholder="horas"
-                  formControlName="horas"
-                  [(ngModel)]="diario.horas"
-                />
-              </div>
-              <div *ngIf="submitted && form.invalid">
-                <div *ngFor="let error of errorMessages.horas">
-                  <div *ngIf="f.horas.hasError(error.type)">
-                    <small class="text-danger">{{ error.message }}</small>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <input
-                  class="form-control mt-3"
-                  type="text"
-                  placeholder="link"
-                  formControlName="link"
-                  [(ngModel)]="diario.link"
-                />
-              </div>
-              <div *ngIf="submitted && form.invalid">
-                <div *ngFor="let error of errorMessages.link">
-                  <div *ngIf="f.link.hasError(error.type)">
-                    <small class="text-danger">{{ error.message }}</small>
-                  </div>
-                </div>
-              </div>
-              <div class="modal-footer bg-dark text-light mt-3">
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-dismiss="modal"
-                  (click)="closeModal()"
-                >
-                  Close
-                </button>
-                <button type="submit" class="btn btn-primary">
-                  Save changes
-                </button>
-              </div>
-            </form>
-          </div>
+          </form>
         </div>
       </div>
     </div>
   </div>
-  
+</div>
+

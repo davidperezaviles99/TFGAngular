@@ -1,0 +1,88 @@
+<app-navbar></app-navbar>
+
+<div class="container bootstrap snippets bootdey">
+    <div class="panel-body inf-content">
+        <h1>Perfil</h1>
+        <button (click)="openModal(user)" class="btn btn-primary mb-3 float-right">
+            Modifica tu perfil
+          </button>
+        <br>
+        <div class="row">
+            <div class="col-md-4">
+                <img alt="" style="width:600px;" title="" class="img-circle img-thumbnail isTooltip" src="https://bootdey.com/img/Content/avatar/avatar7.png" data-original-title="Usuario"> 
+            </div>
+            <div class="col-md-6">
+                <strong>Information</strong><br>
+                <div class="table-responsive">
+                <table class="table table-user-information">
+                    <tbody>
+                        <tr>        
+                            <td>
+                                <strong>
+                                <span class="glyphicon glyphicon-asterisk text-primary"></span>
+                                    Identificacion                                                
+                                </strong>
+                            </td>
+                            <td class="text-primary">
+                                {{user.id}}   
+                            </td>
+                        </tr>
+                        <tr>    
+                            <td>
+                                <strong>
+                                    <span class="glyphicon glyphicon-user  text-primary"></span>    
+                                    Name                                                
+                                </strong>
+                            </td>
+                            <td class="text-primary">
+                                {{user.name}}     
+                            </td>
+                        </tr>
+                        <tr>        
+                            <td>
+                                <strong>
+                                    <span class="glyphicon glyphicon-cloud text-primary"></span>  
+                                     Lastname                                                
+                                </strong>
+                            </td>
+                            <td class="text-primary">
+                                {{user.lastname}}  
+                            </td>
+                        </tr>    
+    
+                        <tr>        
+                            <td>
+                                <strong>
+                                    <span class="glyphicon glyphicon-eye-open text-primary"></span> 
+                                    Role                                                
+                                </strong>
+                            </td>
+                            <td class="text-primary">
+                                {{user.role}}
+                            </td>
+                        </tr>
+                        <tr>        
+                            <td>
+                                <strong>
+                                    <span class="glyphicon glyphicon-envelope text-primary"></span> 
+                                    Email                                                
+                                </strong>
+                            </td>
+                            <td class="text-primary">
+                                {{user.email}}
+                            </td>
+                        </tr>                              
+                    </tbody>
+                </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>  
+    
+<app-profile-crud
+[showModal]="showModal"
+  [user]="user"
+  (close)="closeModal($event)"
+  (newUser)="updateUser($event)"
+></app-profile-crud>
