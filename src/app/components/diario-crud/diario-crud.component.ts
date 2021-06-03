@@ -142,7 +142,6 @@ export class DiarioCrudComponent implements OnInit {
       horas: [
         '',
         [
-          Validators.required,
           Validators.maxLength(2),
           Validators.minLength(1),
         ],
@@ -150,7 +149,6 @@ export class DiarioCrudComponent implements OnInit {
       descripcion: [
         '',
         [
-          Validators.required,
           Validators.maxLength(150),
           Validators.minLength(3),
         ],
@@ -188,12 +186,10 @@ export class DiarioCrudComponent implements OnInit {
   public errorMessages = {
     date: [{ type: 'required', message: 'The Date is required' }],
     horas: [
-      { type: 'required', message: 'The hours is required' },
       { type: 'maxlength', message: 'Maximum 2 characters' },
       { type: 'minlength', message: 'Minimun 1 characters' },
     ],
     descripcion: [
-      { type: 'required', message: 'The description is required' },
       { type: 'maxlength', message: 'Maximum 150 characters' },
       { type: 'minlength', message: 'Minimun 3 characters' },
     ],

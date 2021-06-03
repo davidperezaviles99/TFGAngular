@@ -104,11 +104,11 @@ export class MensajeComponent implements OnInit {
   getMensajeID(id: number) {
     this._mensajeService.getEquipoMensajeID(id).subscribe(
       (resp) => {
-        this.mensaje = resp;
-        const index = this.mensajes.findIndex(m => m.id == resp.id);
-        if(index == -1) {
-          this.mensajes.push(resp);
-        }
+        this.mensajes = resp;
+        // const index = this.mensajes.findIndex(m => m.id == resp.id);
+        // if(index == -1) {
+        //   this.mensajes.push(resp);
+        // }
       },
       (err) => {
         console.log(err);

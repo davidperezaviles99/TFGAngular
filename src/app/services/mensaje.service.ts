@@ -16,8 +16,8 @@ export class MensajeService {
     return this._http.get<IMensaje[]>(`${environment.base_url}/Mensajes`)
   }
 
-  getEquipoMensajeID(id: number): Observable<IMensaje>{
-    return this._http.get<IMensaje>(`${environment.base_url}/Mensajes/getEquipoMensaje/${id}`)
+  getEquipoMensajeID(id: number){
+    return this._http.get<IMensaje[]>(`${environment.base_url}/Mensajes/getEquipoMensaje/${id}`)
   }
 
   getMensajes(id: number) {
