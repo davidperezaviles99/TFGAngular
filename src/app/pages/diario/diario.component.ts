@@ -1,8 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IAlumno, IConsulta, IDiario, IEquipo, IEvaluacion, IProfesor, ITutor, IUser } from 'src/app/interfaces/interfaces';
-import { Alumno, Diario, Evaluacion, Profesor, Tutor } from 'src/app/models/models';
+import { ActivatedRoute, Router } from '@angular/router';
+import { IAlumno, IConsulta, IDiario, IEquipo, IEquipoMensaje, IEvaluacion, IMessage, IProfesor, ITutor, IUser } from 'src/app/interfaces/interfaces';
+import { Alumno, Diario, Equipo, Evaluacion, Profesor, Tutor } from 'src/app/models/models';
 import { DiarioService } from 'src/app/services/diario.service';
 import { EquipoService } from 'src/app/services/equipo.service';
+import { MensajeService } from 'src/app/services/mensaje.service';
 import { UsersService } from 'src/app/services/users.service';
 
 @Component({
@@ -13,6 +15,10 @@ import { UsersService } from 'src/app/services/users.service';
 export class DiarioComponent implements OnInit {
   public showModal = false;
   public showEvaluacionModal = false;
+  public messageIsShow = false;
+
+  public equipoMensajes: IEquipoMensaje[] = [];
+  public message = '';
 
   roles = ['Alumno', 'Profesor','Tutor'];
 
@@ -30,14 +36,20 @@ export class DiarioComponent implements OnInit {
 
 
   public equipos: IEquipo[] = [];
-  public equipo: IEquipo;
+public equipo = new Equipo();
   
   public evaluacions: IEvaluacion[] = [];
   public evaluacion = new Evaluacion();
 
   public user: IUser;
- 
-  constructor(public _diarioService: DiarioService, public _usersService: UsersService, private _equipoService: EquipoService) { }
+   public id: number;
+
+  constructor(public _diarioService: DiarioService,
+     public _usersService: UsersService, 
+     public _equipoService: EquipoService,
+     public _mensajeService: MensajeService,
+     private router: Router,
+     private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem('user'));
@@ -48,34 +60,88 @@ export class DiarioComponent implements OnInit {
     // this.getEquipoList();
     this.getConsulta();
     this.getDiarios();
+    this.route.paramMap.subscribe(param => {
+      const id = +param.get('id');
+      this.id = id;
+      this.getEquipoMensajeList(id);
+    });
+  }
+
+  createMessage() {
+    if (this.message.trim().length > 0) {
+      const message: IMessage = {
+        description: this.message,
+      };
+      this._mensajeService.createMessage(message).subscribe(
+        (resp) => {
+          this.message = '';
+          const equipoMensajes: IEquipoMensaje = {
+            user: this.user,
+            equipo: this.diario.equipo,
+            //equipo: this.equipo,
+            message: resp,
+            date: new Date(),
+          };
+
+          console.log(equipoMensajes)
+          this._mensajeService
+            .updateOperatorDemandMessage(equipoMensajes)
+            .subscribe(
+              (resp) => {
+                this.equipoMensajes.push(resp);
+              },
+              (err) => {
+                console.log(err);
+              }
+            );
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+    }
+  }
+
+  getEquipoMensajeList(id: number) {
+    this._mensajeService.getEquipoMensajeList(id).subscribe(
+      (resp) => {
+        this.equipoMensajes = resp;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  getDiarioID(id: number) {
+    this._diarioService.getEquipoDiarioID(id).subscribe(
+      (resp) => {
+        this.diarios = resp;
+        this.router.navigate(['/ver', id])
+        // const index = this.diarios.findIndex(d => d.id == resp.id);
+        // if(index == -1) {
+        // this.diarios.push(resp);
+        // }
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  openMessages() {
+    if (!this.messageIsShow) {
+      this.getEquipoMensajeList(this.id);
+      this.messageIsShow = true;
+      console.log(this.messageIsShow)
+    } else {
+      this.messageIsShow = false;
+    }
   }
 
   getUser(){
     this.user = this._usersService.getUser();
   }
-
-  // getEquipoList() {
-  //   this._equipoService.getEquipoList().subscribe(
-  //     (resp) => {
-  //       this.equipos = resp;
-  //     },
-  //     (err) => {
-  //       console.log(err);
-  //     }
-  //   );
-  // }
-
-  // getAlumnoList() {
-  //   this._usersService.getAlumnoList().subscribe(
-  //     (resp) => {
-  //       this.alumnos = resp;
-  //     },
-  //     (err) => {
-  //       console.log(err);
-  //     }
-  //   );
-  // }
-
   // getEquipoID(id: number){
 
   //   this._equipoService.getEquipoID(id).subscribe(
@@ -113,20 +179,7 @@ export class DiarioComponent implements OnInit {
   //   );
   // }
 
-  getDiarioID(id: number) {
-    this._diarioService.getEquipoDiarioID(id).subscribe(
-      (resp) => {
-        this.diarios = resp;
-        // const index = this.diarios.findIndex(d => d.id == resp.id);
-        // if(index == -1) {
-        // this.diarios.push(resp);
-        // }
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
-  }
+
 
   getEvaluacionList() {
     this._diarioService.getEvaluacionList().subscribe(

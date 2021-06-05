@@ -2,8 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { IDiario, IMensaje } from '../interfaces/interfaces';
+import { IEquipoMensaje, IMensaje, IMessage } from '../interfaces/interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -33,10 +34,31 @@ export class MensajeService {
   }
 
   deleteM(id: number): Observable<IMensaje> {
-    return this._http.delete<IMensaje>(`${environment.base_url}/Mensajes/${id}`)
+    return this._http.delete<IMensaje>(`${environment.base_url}/Messages/${id}`)
   }
 
-  getMensaje(): IMensaje {
-    return JSON.parse(localStorage.getItem('diario'))
+  createMessage(message: IMessage) {
+    return this._http.post<IMessage>(
+      `${environment.base_url}/Messages`,
+      message
+    );
   }
+
+  updateOperatorDemandMessage(equipoMensaje: IEquipoMensaje) {
+    return this._http.post<IEquipoMensaje>(
+      `${environment.base_url}/Equipos/EquipoMensaje`,
+      equipoMensaje
+    );
+  }
+
+  getEquipoMensajeList(id: number) {
+    return this._http
+      .get<IEquipoMensaje[]>(
+        `${environment.base_url}/Equipos/getEquipoMensajeList/${id}`
+      )
+      .pipe(tap((resp) => resp.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())));
+  }
+
+
+
 }

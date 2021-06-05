@@ -28,7 +28,9 @@ export class DiarioService {
   }
 
   getEquipoDiarioID(id: number) {
-    return this._http.get<IDiario[]>(`${environment.base_url}/Diarios/getEquipoDiario/${id}`)
+    return this._http.get<IDiario[]>(`${environment.base_url}/Diarios/getEquipoDiario/${id}`
+    )
+    .pipe(tap((resp) => resp.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())));
   }
 
   registerD(asignaturaData: IDiario): Observable<IDiario> {

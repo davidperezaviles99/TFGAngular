@@ -12,6 +12,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/diario/diario.module').then( m => m.DiarioModule)
   },
   {
+    path: 'ver/:id',
+    loadChildren: () => import('./pages/diario/diario.module').then( m => m.DiarioModule)
+  },
+  {
     path: 'Mensaje',
     loadChildren: () => import('./pages/mensaje/mensaje.module').then( m => m.MensajeModule)
   },

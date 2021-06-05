@@ -93,6 +93,19 @@ export interface IMensaje{
     user: IUser;
 }
 
+export interface IEquipoMensaje {
+    id?: number;
+    user: IUser;
+    equipo: IEquipo;
+    message: IMessage;
+    date: Date;
+  }
+
+export interface IMessage {
+    id?: number;
+    description: string;
+  }
+
 export interface IConsulta{
     id: number;
     role: string;
