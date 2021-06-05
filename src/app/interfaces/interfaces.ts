@@ -96,6 +96,7 @@ export interface IMensaje{
 export interface IEquipoMensaje {
     id?: number;
     user: IUser;
+    equipoId?: number;
     equipo: IEquipo;
     message: IMessage;
     date: Date;

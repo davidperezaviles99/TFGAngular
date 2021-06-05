@@ -77,13 +77,15 @@ public equipo = new Equipo();
           this.message = '';
           const equipoMensajes: IEquipoMensaje = {
             user: this.user,
-            equipo: this.diario.equipo,
-            //equipo: this.equipo,
+            equipoId: this.id,
+            equipo: this.equipo,
             message: resp,
             date: new Date(),
-          };
+          }; 
 
+          console.log(this.id)
           console.log(equipoMensajes)
+
           this._mensajeService
             .updateOperatorDemandMessage(equipoMensajes)
             .subscribe(
@@ -133,7 +135,6 @@ public equipo = new Equipo();
     if (!this.messageIsShow) {
       this.getEquipoMensajeList(this.id);
       this.messageIsShow = true;
-      console.log(this.messageIsShow)
     } else {
       this.messageIsShow = false;
     }
