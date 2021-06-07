@@ -26,8 +26,9 @@
                 </div>
               </div>
             </div>
-            <div *ngIf="user.role === 'Alumno'">
-              <input
+            <div>
+              <input 
+              [readonly]="user.role != 'Alumno'"
                 class="form-control mt-3"
                 type="number"
                 placeholder="horas"
@@ -42,8 +43,9 @@
                 </div>
               </div>
             </div>
-            <div *ngIf="user.role === 'Alumno'" > 
+            <div> 
               <input
+              [readonly]="user.role != 'Alumno'"
                 class="form-control mt-3"
                 type="text"
                 placeholder="descripcion"
@@ -58,8 +60,9 @@
                 </div>
               </div>
             </div>
-            <div *ngIf="user.role === 'Alumno'">
+            <div>
               <input
+              [readonly]="user.role != 'Alumno'"
                 class="form-control mt-3"
                 type="text"
                 placeholder="link"
@@ -74,8 +77,9 @@
                 </div>
               </div>
             </div>
-            <div *ngIf="user.role === 'Tutor'">
+            <div>
               <input
+              [readonly]="user.role != 'Tutor'"
                 class="form-control mt-3"
                 type="text"
                 placeholder="evaluacionT"
@@ -90,8 +94,9 @@
                 </div>
               </div>
             </div>
-            <div *ngIf="user.role === 'Profesor'">
+            <div >
               <input
+                [readonly]="user.role != 'Profesor'"
                 class="form-control mt-3"
                 type="text"
                 placeholder="evaluacionP"
@@ -106,11 +111,13 @@
                 </div>
               </div>
             </div>
-            <div *ngIf="user.role === 'Alumno'" class="form-group">
-              <label class="">Asignatura Asignado:  <span *ngIf="diario.asignatura.name" class="badge badge-dark">{{diario.asignatura.name}}</span> </label>
+            <div class="form-group">
+              <label class="" >Asignatura Asignado: </label>
               <select
                 class="form-control"
                 formControlName="asignatura"
+                [(ngModel)]="diario.asignatura.id"
+               
               >
                 <option
                   *ngFor="let asignatura of asignaturas"
@@ -127,11 +134,12 @@
                 </div>
               </div>
             </div>
-            <div *ngIf="user.role === 'Alumno'" class="form-group">
-              <label class="">Elige tu equipo:  <span *ngIf="diario.equipo.id" class="badge badge-dark">{{diario.equipo.id}}</span> </label>
+            <div class="form-group" >
+              <label class="">Elige tu equipo: </label>
               <select
                 class="form-control"
                 formControlName="equipo"
+                [(ngModel)]="diario.equipo.id"
               >
                 <option
                   *ngFor="let equipo of equipos"

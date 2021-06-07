@@ -49,10 +49,11 @@
               </div>
             </div>
             <div class="form-group">
-              <label class="">Asignatura Asignado:  <span *ngIf="curso.asignatura.name" class="badge badge-dark">{{curso.asignatura.name}}</span> </label>
+              <label class="">Asignatura Asignado:  </label>
               <select
                 class="form-control"
                 formControlName="asignatura"
+                [(ngModel)]="curso.asignatura.id"
               >
                 <option
                   *ngFor="let asignatura of asignaturas"
