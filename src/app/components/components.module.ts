@@ -16,9 +16,6 @@ import { EvaluacionCrudComponent } from './evaluacion-crud/evaluacion-crud.compo
 import { MensajeCrudComponent } from './mensaje-crud/mensaje-crud.component';
 import { ProfileCrudComponent } from './profile-crud/profile-crud.component';
 
-
-
-
 @NgModule({
   declarations: [
     NavbarComponent,

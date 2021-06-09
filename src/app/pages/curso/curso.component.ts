@@ -24,6 +24,9 @@ export class CursoComponent implements OnInit {
     this.getCursoList();
   }
 
+  /**
+   * Metodo que obtiene la lista de Curso
+   */
   getCursoList() {
     this._materialservice.getCursoList().subscribe(
       (resp) => {
@@ -35,6 +38,10 @@ export class CursoComponent implements OnInit {
     );
   }
 
+  /**
+   * Abre el Modal del curso
+   * @param curso
+   */
   openModal(curso?: ICurso){
     if(curso){
       this.curso = JSON.parse(JSON.stringify(curso))
@@ -42,11 +49,19 @@ export class CursoComponent implements OnInit {
     this.showModal = true;
   }
 
+  /**
+   * Metodo que cierra el modal
+   * @param showModal 
+   */
   closeModal(showModal: boolean) {
     this.curso = new Curso();
     this.showModal = showModal;
   }
 
+  /**
+   * Metodo que actualiza el curso
+   * @param curso 
+   */
   updateCurso(curso: ICurso) {
     const index = this.cursos.findIndex(o => o.id == curso.id)
 
@@ -76,6 +91,10 @@ export class CursoComponent implements OnInit {
     }
   }
 
+  /**
+   * Metodo que borra el curso
+   * @param id 
+   */
   deletecurso(id: number) {
     Swal.fire({
       icon: 'question',

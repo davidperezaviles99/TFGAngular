@@ -29,6 +29,9 @@ export class CursoCrudComponent implements OnInit {
     this.getAsignaturaList();
   }
 
+   /**
+   * Metodo que trae las lista de Cursos
+   */
   getAsignaturaList(){
     this._materialService.getAsignaturaList().subscribe(
       (resp) => {
@@ -40,12 +43,19 @@ export class CursoCrudComponent implements OnInit {
     );
   }
 
+  /**
+   * Metodo que cierra el Modal y le mete la contraseña automaticamente
+   */
   closeModal() {
     this.form.reset();
     this.submitted = false;
     this.close.emit(false);
   }
 
+   /**
+   * Metodo que envia el curso completado al metodo de registrar o actualizar
+   * @returns Curso Completado
+   */
   onSubmit() {
     this.submitted = true;
 
@@ -62,6 +72,10 @@ export class CursoCrudComponent implements OnInit {
     }
   }
 
+  /**
+   * Metodo que registra el objeto
+   * @param values 
+   */
   register(values: any) {
 
     const cursoData: ICurso = values;
@@ -77,6 +91,10 @@ export class CursoCrudComponent implements OnInit {
     );
   }
 
+  /**
+   * Metodo que actualiza el objeto
+   * @param values
+   */
   update(values: any) {
 
     const { ...fields } = values;
@@ -96,6 +114,10 @@ export class CursoCrudComponent implements OnInit {
     );
   }
 
+  /**
+   * Metodo que crea el formulario cumpliendo
+   * una seria de validaciones estipuladas
+   */
   createForm() {
     this.form = this._formBuilder.group({
       numero: [

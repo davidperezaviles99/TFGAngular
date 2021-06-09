@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+<nav class="navbar navbar-expand-sm navbar-dark" style="background-color: #3490B1;">
     <!-- <a class="navbar-brand" routerLink="/home" routerLinkActive="active">EscuelasSalesianas</a>
     
      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -6,19 +6,16 @@
      </button> -->
      
      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-       <a class="navbar-brand">EscuelasSalesianas</a>
-       <ul class="navbar-nav mr-auto">
-         <li class="nav-item">
-           <a class="nav-link" routerLink="/home" routerLinkActive="active">Inicio</a>
-         </li>
+      <img src="../../../assets/img/captura4.png">  
+       <ul class="navbar-nav mr-auto" style="margin-left: 50px;">
          <li class="nav-item">
           <a class="nav-link" routerLink="/Diario" routerLinkActive="active">Cuaderno de Trabajo</a>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a class="nav-link" routerLink="/Mensaje" routerLinkActive="active">Mensaje</a>
-        </li>
+        </li> -->
            <li *ngIf="user.role === 'Profesor'" class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Administracion
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -31,12 +28,14 @@
           </li>
        </ul>
       </div>
+      
+      
 
       <ul class="navbar-nav ml-auto" >
         <li class="nav-item">
           <a class="nav-link" routerLink="/profile">{{ user.name }} {{user.lastname}}</a>
         </li>
-      <li class="nav-item">
+      <li class="nav-item" style="margin-right: 30px;">
          <!-- <button (click)="logout()" class="btn btn-outline-danger my-2 my-sm-0" type="button">Logout</button> -->
          <a href class="nav-link" (click)="logout()">Logout</a>
         </li>

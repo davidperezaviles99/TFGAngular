@@ -11,6 +11,10 @@ export class ProfesorGuard implements CanActivate {
     private _usersService: UsersService,
     private _router: Router) {}
   
+/**
+ * Metodo que se activa cuando inicias sesion
+ * @return false o true
+ */
   canActivate() {
     const user = this._usersService.getUser()
 

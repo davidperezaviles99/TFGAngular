@@ -22,6 +22,9 @@ public profesor = new Profesor();
     this.getProfesorList();
   }
 
+  /**
+   * Metodo que obtiene la lista de Profesores
+   */
   getProfesorList() {
     this._usersService.getProfesorList().subscribe(
       (resp) => {
@@ -33,6 +36,10 @@ public profesor = new Profesor();
     );
   }
 
+  /**
+   * Abre el modal del Profesor
+   * @param profesor 
+   */
   openModal(profesor?: IProfesor){
     if(profesor){
       this.profesor = JSON.parse(JSON.stringify(profesor))
@@ -40,6 +47,10 @@ public profesor = new Profesor();
     this.showModal = true;
   }
 
+  /**
+   * Cierra el Modal del Profesor
+   * @param showModal 
+   */
   closeModal(showModal: boolean) {
     this.profesor = new Profesor();
     this.showModal = showModal;
@@ -64,7 +75,10 @@ public profesor = new Profesor();
   //     this.tutorModal = showModal;
   // }
   
-
+  /**
+   * Metodo que actualiza el profesor
+   * @param profesor 
+   */
   updateProfesor (profesor: IProfesor){
     const index = this.profesors.findIndex((p) => p.id == profesor.id);
     if (index > -1) {
@@ -93,6 +107,10 @@ public profesor = new Profesor();
     }
   }
 
+  /**
+   * Metodo que borra un profesor
+   * @param id 
+   */
   deleteprofesor(id: number) {
     Swal.fire({
       icon: 'question',

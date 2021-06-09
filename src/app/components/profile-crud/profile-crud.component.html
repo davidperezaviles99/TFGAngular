@@ -64,8 +64,23 @@
                   </div>
                 </div>
               </div>
+              <div>
+                <input
+                  class="form-control mt-3"
+                  type="password"
+                  placeholder="Nueva Contraseña"
+                  formControlName="password"
+                  [(ngModel)]="user.password"
+                />
+              </div>
+              <div *ngIf="submitted && form.invalid">
+                <div *ngFor="let error of errorMessages.password">
+                  <div *ngIf="f.password.hasError(error.type)">
+                    <small class="text-danger">{{ error.message }}</small>
+                  </div>
+                </div>
+              </div>
               <br>
-              <h3>Para ver los cambios guardados, sal y vuelve a entrar</h3>
               <div class="modal-footer bg-dark text-light mt-3">
                 <button
                   type="button"

@@ -6,6 +6,7 @@ import { DiarioService } from 'src/app/services/diario.service';
 import { EquipoService } from 'src/app/services/equipo.service';
 import { MensajeService } from 'src/app/services/mensaje.service';
 import { UsersService } from 'src/app/services/users.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-diario',
@@ -67,6 +68,9 @@ public equipo = new Equipo();
     });
   }
 
+  /**
+   * Metodo que crea un mensaje
+   */
   createMessage() {
     if (this.message.trim().length > 0) {
       const message: IMessage = {
@@ -104,6 +108,10 @@ public equipo = new Equipo();
     }
   }
 
+  /**
+   * Obtiene la lista de los mensajes de un equipo
+   * @param id 
+   */
   getEquipoMensajeList(id: number) {
     this._mensajeService.getEquipoMensajeList(id).subscribe(
       (resp) => {
@@ -115,6 +123,10 @@ public equipo = new Equipo();
     );
   }
 
+  /**
+   * Obtiene los diarios por el id del alumno
+   * @param id 
+   */
   getDiarioID(id: number) {
     this._diarioService.getEquipoDiarioID(id).subscribe(
       (resp) => {
@@ -131,6 +143,9 @@ public equipo = new Equipo();
     );
   }
 
+  /**
+   * Abre los mensajes de un equipo
+   */
   openMessages() {
     if (!this.messageIsShow) {
       this.getEquipoMensajeList(this.id);
@@ -140,6 +155,9 @@ public equipo = new Equipo();
     }
   }
 
+  /**
+   * Obtiene la lista de usuarios
+   */
   getUser(){
     this.user = this._usersService.getUser();
   }
@@ -157,6 +175,9 @@ public equipo = new Equipo();
   //   );
   // }
 
+  /**
+   * Obtiene los diarios de cada usuario
+   */
   getDiarios(){
     this._diarioService.getDiarios(this.user.id).subscribe(
       (resp) => {
@@ -180,8 +201,9 @@ public equipo = new Equipo();
   //   );
   // }
 
-
-
+/**
+ * Obtiene la lista de usuarios
+ */
   getEvaluacionList() {
     this._diarioService.getEvaluacionList().subscribe(
       (resp) => {
@@ -193,6 +215,10 @@ public equipo = new Equipo();
     );
   }
 
+  /**
+   * Abre el modal de Diario
+   * @param diario 
+   */
   openModal(diario?: IDiario){
     if(diario){
       this.diario = JSON.parse(JSON.stringify(diario))
@@ -200,6 +226,10 @@ public equipo = new Equipo();
     this.showModal = true;
   }
 
+  /**
+   * Cierra el modal de Diario
+   * @param showModal 
+   */
   closeModal(showModal: boolean) {
     this.diario = new Diario();
     this.showModal = showModal;
@@ -217,20 +247,57 @@ public equipo = new Equipo();
     this.showEvaluacionModal = showModal;
   }
 
+  /**
+   * Actualiza el Diario
+   * @param diario 
+   */
   updateDiario(diario: IDiario) {
     const index = this.diarios.findIndex((d) => d.id == diario.id)
 
     if(index > -1) {
+      Swal.fire({
+        icon: 'success',
+        titleText: 'Success',
+        text: `Tarea actualizada`,
+        showCancelButton: false,
+        showConfirmButton: true,
+        confirmButtonText: 'Ok',
+        confirmButtonColor: '#17a2b8'
+      })
       this.diarios.splice(index, 1, diario);
       this.getDiarios();
     } else {
+      Swal.fire({
+        icon: 'success',
+        titleText: 'Success',
+        text: `Tarea creada`,
+        showCancelButton: false,
+        showConfirmButton: true,
+        confirmButtonText: 'Ok',
+        confirmButtonColor: '#17a2b8'
+      })
       this.diarios.push(diario);
       this.getDiarioID(this.equipo.id);
       this.getDiarios();
     }
   }
 
+  /**
+   * Borra un diario
+   * @param id 
+   */
   deletediario(id: number) {
+    Swal.fire({
+      icon: 'question',
+      text: `¿Desea eliminar esta tarea?`,
+      showCancelButton: true,
+      cancelButtonText: 'Cancelar',
+      cancelButtonColor: '#17a2b8',
+      showConfirmButton: true,
+      confirmButtonText: 'Eliminar',
+      confirmButtonColor: '#dc3545'
+    }).then((result) => {
+      if(result.isConfirmed) {
     this._diarioService.deleteD(id).subscribe(
       () => {
         this.getDiarios();
@@ -238,9 +305,10 @@ public equipo = new Equipo();
       },
       (err) => {
         console.log(err);
-      }
-    );
-  }
+      })
+    }
+  })
+}
 
   updateEvaluacion(evaluacion: IEvaluacion) {
     const index = this.evaluacions.findIndex(o => o.id == evaluacion.id)
@@ -265,6 +333,9 @@ public equipo = new Equipo();
     );
   }
 
+  /**
+   * Metodo que consulta segun tu rol y te trae los equipos en los que formas parte
+   */
   getConsulta(){
     const Consulta: IConsulta = {
       id: this.user.id,

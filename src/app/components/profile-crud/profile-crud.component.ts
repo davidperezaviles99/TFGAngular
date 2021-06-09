@@ -27,12 +27,19 @@ export class ProfileCrudComponent implements OnInit {
     this.createForm();
   }
 
+  /**
+   * Metodo que cierra el Modal
+   */
   closeModal() {
     this.form.reset();
     this.submitted = false;
     this.close.emit(false);
   }
 
+  /**
+   * Metodo que envia el usuario completado al metodo de actualizar
+   * @returns Perfil Completado
+   */
   onSubmit() {
     this.submitted = true;
 
@@ -45,6 +52,10 @@ export class ProfileCrudComponent implements OnInit {
     }
   }
 
+    /**
+   * Metodo que actualiza el objeto
+   * @param values
+   */
   update(values: any) {
 
     const { ...fields } = values;
@@ -64,6 +75,10 @@ export class ProfileCrudComponent implements OnInit {
     );
   }
 
+  /**
+   * Metodo que crea el formulario cumpliendo
+   * una seria de validaciones estipuladas
+   */
   createForm() {
     this.form = this._formBuilder.group({
       name: [
@@ -83,6 +98,13 @@ export class ProfileCrudComponent implements OnInit {
         ],
       ],
       email: ['', [Validators.required, Validators.email]],
+      password: [
+        'Salesianas1',
+        [
+          Validators.required,
+          Validators.pattern(/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S*$/),
+        ],
+      ],
     });
   }
 
@@ -104,6 +126,14 @@ export class ProfileCrudComponent implements OnInit {
     email: [
       { type: 'required', message: 'The email is required' },
       { type: 'email', message: 'Must be a valid email' },
+    ],
+    password: [
+      { type: 'required', message: 'The password is required' },
+      {
+        type: 'pattern',
+        message:
+          'Password must contain at least one lowercase letter, one uppercase letter, and one number',
+      },
     ],
   };
 }

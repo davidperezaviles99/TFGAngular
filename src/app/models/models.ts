@@ -136,7 +136,7 @@ export class Diario implements IDiario{
         link: string = null,
         evaluacionT: string = null,
         evaluacionP: string = null,
-        user: IUser = { id: null, name: null, lastname: null, email: null, role: null},
+        user: IUser = { id: null, name: null, lastname: null, email: null, password: null,role: null},
         equipo: IEquipo = { id: null, alumnoId: null, profesor: null, tutor: null},
         asignatura: IAsignaturas = { id: null, name: null, codigo: null, profesor: null},
     ){
@@ -180,6 +180,7 @@ export class User implements IUser{
     name: string;
     lastname: string;
     email: string;
+    password: string;
     role: string;
 
     constructor(
@@ -187,12 +188,14 @@ export class User implements IUser{
         name: string = null,
         lastname: string = null,
         email: string = null,
+        password: string = null,
         role: string = null,
     ){
         this.id = id;
         this.name = name;
         this.lastname = lastname;
         this.email = email;
+        this.password = password;
         this.role = role;
     }
 }
@@ -210,7 +213,7 @@ export class Mensaje implements IMensaje{
         asunto: string = null,
         name: string = null,
         equipo: IEquipo = { id: null, alumnoId: null, profesor: null, tutor: null},
-        user: IUser = { id: null, name: null, lastname: null, email: null, role: null},
+        user: IUser = { id: null, name: null, lastname: null, email: null, password: null, role: null},
     ){
         this.id = id;
         this.comentario = comentario;

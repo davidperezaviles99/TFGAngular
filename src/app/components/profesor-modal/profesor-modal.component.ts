@@ -22,6 +22,10 @@ export class ProfesorModalComponent implements OnInit {
     this.getProfesor();
   }
 
+  /**
+   * Metodo que asigna el profesor a un alumno determinado
+   * @param profesor 
+   */
   asignarProfesor(profesor: IProfesor){
     const equipo: IEquipo = {
       alumnoId: this.alumnoId,
@@ -35,6 +39,11 @@ export class ProfesorModalComponent implements OnInit {
     })
   }
 
+  /**
+   * Comprueba si ese Alumno tiene un profesor Asignado.
+   * @param profesor 
+   * @returns 
+   */
   checkProfesor(profesor: IProfesor): boolean {
     const check = this.equipos.some(p => {
       if(p.profesor != null){
@@ -45,6 +54,10 @@ export class ProfesorModalComponent implements OnInit {
     return check
   }
 
+  /**
+   * Elimina un Profesor y deja de estar asignado
+   * @param equipo 
+   */
   deleteProfesor(equipo: IEquipo){
     equipo.profesor = null;
 
@@ -56,6 +69,9 @@ export class ProfesorModalComponent implements OnInit {
     })
   }
 
+  /**
+   * Recoge los Profesores que hay en la BBDD y los muestra
+   */
   getProfesor() {
     this._equipoService.getProfesor().subscribe(resp => {
       this.profesors = resp
@@ -64,6 +80,9 @@ export class ProfesorModalComponent implements OnInit {
     })
   }
 
+  /**
+   * Metodo que cierra el Modal
+   */
   closeModal() {
     this.close.emit(false);
   }

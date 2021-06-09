@@ -39,28 +39,9 @@ export class AlumnoCrudComponent implements OnInit {
     this.getCursoList();
   }
 
-  // getTutorList(){
-  //   this._usersService.getTutorList().subscribe(
-  //     (resp) => {
-  //       this.tutors = resp;
-  //     },
-  //     (err) => {
-  //       console.log(err);
-  //     }
-  //   );
-  // }
-
-  // getProfesorList(){
-  //   this._usersService.getProfesorList().subscribe(
-  //     (resp) => {
-  //       this.profesors = resp;
-  //     },
-  //     (err) => {
-  //       console.log(err);
-  //     }
-  //   );
-  // }
-
+  /**
+   * Metodo que trae las lista de Cursos
+   */
   getCursoList(){
     this._materialService.getCursoList().subscribe(
       (resp) => {
@@ -72,12 +53,19 @@ export class AlumnoCrudComponent implements OnInit {
     );
   }
 
+  /**
+   * Metodo que cierra el Modal y le mete la contraseña automaticamente
+   */
   closeModal() {
     this.form.reset({ password: 'Salesianas1' });
     this.submitted = false;
     this.close.emit(false);
   }
 
+  /**
+   * Metodo que envia el alumno completado al metodo de registrar o actualizar
+   * @returns Alumno Completado
+   */
   onSubmit() {
     this.submitted = true;
 
@@ -96,6 +84,10 @@ export class AlumnoCrudComponent implements OnInit {
     }
   }
 
+  /**
+   * Metodo que registrar el objeto
+   * @param values 
+   */
   register(values: any) {
 
     const alumnoData: IAlumno = values;
@@ -112,6 +104,10 @@ export class AlumnoCrudComponent implements OnInit {
     );
   }
 
+  /**
+   * Metodo que actualiza el objeto
+   * @param values
+   */
   update(values: any) {
 
     const { password, ...fields } = values;
@@ -131,6 +127,10 @@ export class AlumnoCrudComponent implements OnInit {
     );
   }
 
+  /**
+   * Metodo que crea el formulario cumpliendo
+   * una seria de validaciones estipuladas
+   */
   createForm() {
     this.form = this._formBuilder.group({
       name: [

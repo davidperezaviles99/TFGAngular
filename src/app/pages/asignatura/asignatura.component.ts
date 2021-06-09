@@ -22,6 +22,9 @@ export class AsignaturaComponent implements OnInit {
     this.getAsignaturaList();
   }
 
+  /**
+   * Metodo que obtiene la lista de Asignaturas
+   */
   getAsignaturaList() {
     this._materialService.getAsignaturaList().subscribe(
       (resp) => {
@@ -33,6 +36,10 @@ export class AsignaturaComponent implements OnInit {
     );
   }
 
+  /**
+   * Abre el Modal de la asignatura
+   * @param asignatura
+   */
   openModal(asignatura?: IAsignaturas){
     if(asignatura){
       this.asignatura = JSON.parse(JSON.stringify(asignatura))
@@ -40,11 +47,20 @@ export class AsignaturaComponent implements OnInit {
     this.showModal = true;
   }
 
+   /**
+   * Metodo que cierra el modal
+   * @param showModal 
+   */
   closeModal(showModal: boolean) {
     this.asignatura = new Asignaturas();
     this.showModal = showModal;
   }
 
+
+  /**
+   * Metodo que actualiza la asignatura
+   * @param asignatura 
+   */
   updateAsignatura(asignatura: IAsignaturas) {
     const index = this.asignaturas.findIndex(a => a.id == asignatura.id)
 
@@ -74,6 +90,10 @@ export class AsignaturaComponent implements OnInit {
     }
   }
 
+  /**
+   * Metodo que borra la asignatura
+   * @param id 
+   */
   deleteasignatura(id: number) {
     Swal.fire({
       icon: 'question',

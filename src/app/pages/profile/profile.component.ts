@@ -22,10 +22,16 @@ export class ProfileComponent implements OnInit {
     this.getUser();
   }
 
+  /**
+   * Metodo que obtiene el usuario
+   */
   getUser(){
     this.user = this._usersService.getUser();
   }
 
+  /**
+   * Metodo que obtiene la lista de usuarios
+   */
   getUserList() {
     this._usersService.getUserList().subscribe(
       (resp) => {
@@ -37,6 +43,10 @@ export class ProfileComponent implements OnInit {
     );
   }
 
+  /**
+   * Abre el Modal del usuario
+   * @param user 
+   */
   openModal(user?: IUser){
     if(user){
       this.user = JSON.parse(JSON.stringify(user))
@@ -44,11 +54,19 @@ export class ProfileComponent implements OnInit {
     this.showModal = true;
   }
 
+  /**
+   * Cierra el Modal
+   * @param showModal 
+   */
   closeModal(showModal: boolean) {
     this.user = new User();
     this.showModal = showModal;
   }
 
+  /**
+   * Metodo que actualiza el usuario
+   * @param user 
+   */
   updateUser (user: IUser){
     const index = this.users.findIndex((p) => p.id == user.id);
     if (index > -1) {
@@ -67,7 +85,8 @@ export class ProfileComponent implements OnInit {
       Swal.fire({
         icon: 'success',
         titleText: 'Success',
-        text: `User creado`,
+        text: `User Actualizado.
+        Para ver los cambios actualizados, reinicie sesion`,       
         showCancelButton: false,
         showConfirmButton: true,
         confirmButtonText: 'Ok',

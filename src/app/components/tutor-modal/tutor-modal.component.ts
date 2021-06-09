@@ -23,6 +23,10 @@ export class TutorModalComponent implements OnInit {
     this.getTutor();
   }
 
+   /**
+   * Metodo que asigna el tutor a un alumno determinado
+   * @param profesor 
+   */
   asignarTutor(tutor: ITutor){
     const equipo: IEquipo = {
       alumnoId: this.alumnoId,
@@ -36,6 +40,11 @@ export class TutorModalComponent implements OnInit {
     })
   }
 
+  /**
+   * Comprueba si ese Alumno tiene un tutor asignado.
+   * @param profesor 
+   * @returns 
+   */
   checkTutor(tutor: ITutor): boolean {
     const check = this.equipos.some(t => {
       if(t.tutor != null){
@@ -46,6 +55,10 @@ export class TutorModalComponent implements OnInit {
     return check;
   }
 
+   /**
+   * Elimina un Tutor y deja de estar asignado
+   * @param equipo 
+   */
   deleteTutor(equipo: IEquipo){
     equipo.tutor = null;
 
@@ -57,6 +70,9 @@ export class TutorModalComponent implements OnInit {
     })
   }
 
+  /**
+   * Recoge los Tutores que hay en la BBDD y los muestra
+   */
   getTutor() {
     this._equipoService.getTutor().subscribe(resp => {
       this.tutors = resp
@@ -65,6 +81,9 @@ export class TutorModalComponent implements OnInit {
     })
   }
 
+  /**
+   * Metodo que cierra el Modal
+   */
   closeModal() {
     this.close.emit(false);
   }

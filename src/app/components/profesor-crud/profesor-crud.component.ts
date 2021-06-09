@@ -29,12 +29,19 @@ export class ProfesorCrudComponent implements OnInit {
     this.createForm();
   }
 
+  /**
+   * Metodo que cierra el Modal y le mete la contraseña automaticamente
+   */
   closeModal() {
     this.form.reset({ password: 'Salesianas1' });
     this.submitted = false;
     this.close.emit(false);
   }
 
+  /**
+   * Metodo que envia el profesor completado al metodo de registrar o actualizar
+   * @returns Profesor Completado
+   */
   onSubmit() {
     this.submitted = true;
 
@@ -49,6 +56,10 @@ export class ProfesorCrudComponent implements OnInit {
     }
   }
 
+  /**
+   * Metodo que registrar el objeto
+   * @param values 
+   */
   register(values: any) {
 
     const profesorData: IProfesor = values;
@@ -64,6 +75,10 @@ export class ProfesorCrudComponent implements OnInit {
     );
   }
 
+  /**
+   * Metodo que actualiza el objeto
+   * @param values
+   */
   update(values: any) {
 
     const { password, ...fields } = values;
@@ -83,6 +98,10 @@ export class ProfesorCrudComponent implements OnInit {
     );
   }
 
+  /**
+   * Metodo que crea el formulario cumpliendo
+   * una seria de validaciones estipuladas
+   */
   createForm() {
     this.form = this._formBuilder.group({
       name: [

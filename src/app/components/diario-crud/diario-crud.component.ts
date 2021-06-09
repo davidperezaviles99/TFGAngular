@@ -51,10 +51,16 @@ export class DiarioCrudComponent implements OnInit {
   //   this.equipo = this._equipoService.getEquipo();
   // }
 
+  /**
+   * Metodo que obtiene el usuario
+   */
   getUser(){
     this.user = this._usersService.getUser();
   }
 
+  /**
+   * Metodo que trae las lista de Equipos
+   */
   getEquipoList(){
     this._equipoService.getEquipoList().subscribe(
       (resp) => {
@@ -66,6 +72,9 @@ export class DiarioCrudComponent implements OnInit {
     );
   }
 
+  /**
+   * Metodo que trae las lista de Asignaturas
+   */
   getAsignaturaList(){
     this._materialService.getAsignaturaList().subscribe(
       (resp) => {
@@ -77,12 +86,19 @@ export class DiarioCrudComponent implements OnInit {
     );
   }
 
+  /**
+   * Metodo que cierra el Modal y le mete la contraseña automaticamente
+   */
   closeModal() {
     this.form.reset();
     this.submitted = false;
     this.close.emit(false);
   }
 
+   /**
+   * Metodo que envia el diario completado al metodo de registrar o actualizar
+   * @returns Diario Completado
+   */
   onSubmit() {
     this.submitted = true;
 
@@ -101,6 +117,10 @@ export class DiarioCrudComponent implements OnInit {
     }
   }
 
+  /**
+   * Metodo que registrar el objeto
+   * @param values 
+   */
   register(values: any) {
 
     const diarioData: IDiario =  values;
@@ -117,6 +137,10 @@ export class DiarioCrudComponent implements OnInit {
     );
   }
 
+  /**
+   * Metodo que actualiza el objeto
+   * @param values
+   */
   update(values: any) {
 
     const { ...fields } = values;
@@ -136,6 +160,10 @@ export class DiarioCrudComponent implements OnInit {
     );
   }
 
+   /**
+   * Metodo que crea el formulario cumpliendo
+   * una seria de validaciones estipuladas
+   */
   createForm() {
     this.form = this._formBuilder.group({
       date: ['',[Validators.required,],],

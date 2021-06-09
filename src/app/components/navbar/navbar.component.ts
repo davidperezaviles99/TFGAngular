@@ -17,6 +17,9 @@ export class NavbarComponent implements OnInit {
     this.getUser()
   }
 
+  /**
+   * Metodo para salir de la aplicacion
+   */
   logout(){
     this._usersService.logout()
   }

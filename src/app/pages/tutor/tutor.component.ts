@@ -24,6 +24,9 @@ export class TutorComponent implements OnInit {
     this.getTutorList()
   }
 
+   /**
+   * Metodo que obtiene la lista de Tutores
+   */
   getTutorList() {
     this._usersService.getTutorList().subscribe(
       (resp) => {
@@ -35,6 +38,10 @@ export class TutorComponent implements OnInit {
     );
   }
 
+   /**
+   * Abre el modal del Profesor
+   * @param profesor 
+   */
   openModal(tutor?: ITutor){
     if(tutor){
       this.tutor = JSON.parse(JSON.stringify(tutor))
@@ -42,6 +49,10 @@ export class TutorComponent implements OnInit {
     this.showModal = true;
   }
 
+  /**
+   * Cierra el Modal del Profesor
+   * @param showModal 
+   */
   closeModal(showModal: boolean) {
     this.tutor = new Tutor();
     this.showModal = showModal;
@@ -66,6 +77,10 @@ export class TutorComponent implements OnInit {
   //     this.profesorModal = showModal;
   // }
 
+    /**
+   * Metodo que actualiza el tutor
+   * @param tutor 
+   */
   updateTutor(tutor: ITutor) {
     const index = this.tutors.findIndex(o => o.id == tutor.id)
 
@@ -95,6 +110,10 @@ export class TutorComponent implements OnInit {
     }
   }
 
+  /**
+   * Metodo que borra un tutor
+   * @param id 
+   */
   deletetutor(id: number) {
     Swal.fire({
       icon: 'question',

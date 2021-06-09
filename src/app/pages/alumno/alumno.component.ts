@@ -28,6 +28,9 @@ export class AlumnoComponent implements OnInit {
     this.getAlumnoList();
   }
 
+  /**
+   * Metodo que obtiene la lista de Alumnos
+   */
   getAlumnoList() {
     this._usersService.getAlumnoList().subscribe(
       (resp) => {
@@ -39,6 +42,10 @@ export class AlumnoComponent implements OnInit {
     );
   }
 
+  /**
+   * Abre el Modal de Alumno
+   * @param alumno
+   */
   openModal(alumno?: IAlumno){
     if(alumno){
       this.alumno = JSON.parse(JSON.stringify(alumno))
@@ -46,17 +53,29 @@ export class AlumnoComponent implements OnInit {
     this.showModal = true;
   }
 
+  /**
+   * Metodo que cierra el modal
+   * @param showModal 
+   */
   closeModal(showModal: boolean) {
     this.alumno = new Alumno();
     this.showModal = showModal;
   }
 
+  /**
+   * Abre el modal del Tutor
+   * @param alumno 
+   */
   openTutorModal(alumno: IAlumno){
     this.alumnoId = alumno.id;
     this.getEquipos(alumno.id);
     this.tutorModal = true;
   }
 
+  /**
+   * Obtiene la lista de equipos
+   * @param alumno 
+   */
   getEquipos(alumno: number){
     this._equipoService.getEquipoByID(alumno).subscribe(resp => {
       this.equipos = resp
@@ -65,22 +84,38 @@ export class AlumnoComponent implements OnInit {
     })
   }
 
+  /**
+   * Cierra el modal del tutor
+   * @param showModal 
+   */
   closeTutorModal(showModal: boolean){
     this.alumno = new Alumno();
     this.tutorModal = showModal;
   }
 
+  /**
+   * Abre el modal del Tutor
+   * @param alumno 
+   */
   openProfesorModal(alumno: IAlumno){
     this.alumnoId = alumno.id;
     this.getEquipos(alumno.id);
     this.profesorModal = true;
   }
 
+  /**
+   * Cierra el modal del tutor
+   * @param showModal 
+   */
   closeProfesorModal(showModal: boolean){
     this.alumno = new Alumno();
     this.profesorModal = showModal;
   }
 
+  /**
+   * Metodo que actualiza el alumno
+   * @param alumno 
+   */
   updateAlumno(alumno: IAlumno) {
     const index = this.alumnos.findIndex(o => o.id == alumno.id)
 
@@ -110,6 +145,10 @@ export class AlumnoComponent implements OnInit {
     }
   }
 
+  /**
+   * Metodo que borra el alumno de la base de datos
+   * @param id 
+   */
   deletealumno(id: number) {
     Swal.fire({
       icon: 'question',

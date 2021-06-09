@@ -29,6 +29,9 @@ export class AsignaturaCrudComponent implements OnInit {
     this.getProfesorList();
   }
 
+  /**
+   * Metodo que trae las lista de Profesores
+   */
   getProfesorList(){
     this._usersService.getProfesorList().subscribe(
       (resp) => {
@@ -40,12 +43,19 @@ export class AsignaturaCrudComponent implements OnInit {
     );
   }
 
+   /**
+   * Metodo que cierra el Modal
+   */
   closeModal() {
     this.form.reset();
     this.submitted = false;
     this.close.emit(false);
   }
 
+   /**
+   * Metodo que envia la asignatura completado al metodo de registrar o actualizar
+   * @returns Asignatura Completado
+   */
   onSubmit() {
     this.submitted = true;
 
@@ -62,6 +72,10 @@ export class AsignaturaCrudComponent implements OnInit {
     }
   }
 
+  /**
+   * Metodo que registrar el objeto
+   * @param values 
+   */
   register(values: any) {
 
     const asignaturaData: IAsignaturas = values;
@@ -77,9 +91,13 @@ export class AsignaturaCrudComponent implements OnInit {
     );
   }
 
-    update(values: any) {
+  /**
+   * Metodo que actualiza el objeto
+   * @param values
+   */
+  update(values: any) {
 
-      const { ...fields } = values;
+    const { ...fields } = values;
 
     const asignaturaData: IAsignaturas = JSON.parse(JSON.stringify(this.asignatura));
 
@@ -95,6 +113,10 @@ export class AsignaturaCrudComponent implements OnInit {
     );
   }
 
+  /**
+   * Metodo que crea el formulario cumpliendo
+   * una seria de validaciones estipuladas
+   */
   createForm() {
     this.form = this._formBuilder.group({
       codigo: [

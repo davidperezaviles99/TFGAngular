@@ -22,11 +22,14 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     if(this._usersService.getUser() != null) {
-      this._router.navigateByUrl('/home')
+      this._router.navigateByUrl('/Diario')
     }
     this.createForm()
   }
 
+  /**
+   * Metodo que crea el formulario con el email y contraseña
+   */
   createForm() {
     this.form = this._formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -34,6 +37,11 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  /**
+   * Metodo que envia el login al servicio para comprobar
+   * que existe en la base de datos
+   * @returns 
+   */
   onSubmit() {
     this.submitted = true;
 
@@ -43,9 +51,18 @@ export class LoginComponent implements OnInit {
 
     this._usersService.login(operatorData).subscribe(
       () => {
+        Swal.fire({
+          icon: 'success',
+          titleText: 'Success',
+          text: `Iniciando...`,
+          showCancelButton: false,
+          showConfirmButton: true,
+          confirmButtonText: 'Ok',
+          confirmButtonColor: '#17a2b8'
+        })
         this.submitted = false;
         this.form.reset();
-        this._router.navigateByUrl('/home')
+        this._router.navigateByUrl('/Diario')
       },
       (err) => {
         console.log(err);

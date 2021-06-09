@@ -16,25 +16,31 @@ a:focus{
 }
 
 #contenedor {
-    width: 100%;
+    text-align: center;
   }
 
   #equipo {
     float: left;
-    width: 15%;
+  }
+  
+  #suma{
+    align-items: flex-end;
   }
 
   #diario {
-    float: left;
-    width: 70%;
+    float: center;
   }
 
-  #mensaje {
+  #accordion {
     float: right;
-    margin-bottom:  10px;
-    margin-right: 10px;
-    width: 15%;
+    margin: 5px;
+    padding: 5px;
   }
+
+  .wrap {
+    display: flex;
+    flex-direction: column;
+}
   
   .myContainer {
     display: none;
@@ -44,43 +50,3 @@ a:focus{
     display: block;
 }
 
-.card, .card-header {
-    background: none;
-    border: none;
-    margin: 0;
-    padding: 0;
-}
-
-.accordion {
-    margin: 0;
-    padding: 0;
-}
-
-.wrap {
-    display: flex;
-    flex-direction: column;
-}
-
-.message {
-    padding: 10px;
-    border-radius: 10px;
-    margin-bottom: 5px;
-    white-space: pre-wrap;
-}
-    _other {
-        background-color: #007bff;
-        color: #fff;
-        float: right;
-    }
-
-    __owner {
-        background-color: #007bff;
-        color: #fff;
-        float: right;
-    }
-
-    __time {
-        color: #fff;
-        float: right;
-        margin-top: 0;
-    }

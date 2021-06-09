@@ -1,4 +1,3 @@
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ITutor } from 'src/app/interfaces/interfaces';
@@ -30,12 +29,19 @@ export class TutorCrudComponent implements OnInit {
     this.createForm();
   }
 
+  /**
+   * Metodo que cierra el Modal y le mete la contraseña automaticamente
+   */
   closeModal() {
     this.form.reset({ password: 'Salesianas1' });
     this.submitted = false;
     this.close.emit(false);
   }
 
+    /**
+   * Metodo que envia el tutor completado al metodo de registrar o actualizar
+   * @returns Tutor Completado
+   */
   onSubmit() {
     this.submitted = true;
 
@@ -50,6 +56,10 @@ export class TutorCrudComponent implements OnInit {
     }
   }
 
+  /**
+   * Metodo que registrar el objeto
+   * @param values 
+   */
   register(values: any) {
 
     // const alumnos: IAlumno[] = [];
@@ -76,6 +86,10 @@ export class TutorCrudComponent implements OnInit {
     );
   }
 
+  /**
+   * Metodo que actualiza el objeto
+   * @param values
+   */
   update(values: any) {
 
     // values.alumno = this.alumnos.find((l) => l.id == values.alumno);
@@ -97,6 +111,10 @@ export class TutorCrudComponent implements OnInit {
     );
   }
 
+  /**
+   * Metodo que crea el formulario cumpliendo
+   * una seria de validaciones estipuladas
+   */
   createForm() {
     this.form = this._formBuilder.group({
       name: [
