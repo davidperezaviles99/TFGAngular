@@ -1,27 +1,45 @@
-# TFGAngular
+# Gestión y evaluación Dual
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.0.
 
-## Development server
+<br>
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+# Índice :clipboard:
+1. Introducción.
+2. Documentación.
+4. Lista de cambios
+5. Mejoras y sugerencias.
+6. Notas finales.
 
-## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+---
+## Introducción
+Esto es un proyecto para la gestión y evaluación del alumnado de dual:
 
-## Build
+- El alumno podrá añadir tareas a su cuaderno de trabajo para informar al tutor y al profesorado de su trabajo realizado durante su estancia en la empresa. También podrá intercambiar mensaje con su tutor y profesor.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+- El tutor podrá ver las tareas de sus alumnos, y evaluarlas acorde a su trabajo durante su estancia en el centro de trabajo.
 
-## Running unit tests
+- El profesor podrá ver las tareas de sus alumnos así como la nota dada por sus tutores a esas tareas, para poder evaluarlas correctamente.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+---
 
-## Running end-to-end tests
+## Documentación :blue_book:
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+#### [Documentación](https://drive.google.com/file/d/17VzcuEtFlpb9p9cFLYzbbBroSoy6BnXD/view?usp=sharing)
+---
 
-## Further help
+## Cambios:black_nib:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+- ### Version 0.1.1:
+  - README añadido
+
+
+---
+
+## Mejoras y sugerencias :arrow_upper_right:
+
+- **
+
+---
+## Notas Finales
+Proyecto final de grado desarrollado en .Net Core + Angular + Ionic + PostgreSQL.
