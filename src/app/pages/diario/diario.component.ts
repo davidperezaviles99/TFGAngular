@@ -87,9 +87,6 @@ public equipo = new Equipo();
             date: new Date(),
           }; 
 
-          console.log(this.id)
-          console.log(equipoMensajes)
-
           this._mensajeService
             .updateOperatorDemandMessage(equipoMensajes)
             .subscribe(

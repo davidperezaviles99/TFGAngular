@@ -61,6 +61,7 @@ export class ProfileComponent implements OnInit {
   closeModal(showModal: boolean) {
     this.user = new User();
     this.showModal = showModal;
+    location.reload();
   }
 
   /**
@@ -93,6 +94,7 @@ export class ProfileComponent implements OnInit {
         confirmButtonColor: '#17a2b8'
       })
       this.users.push(user);
+      location.reload();
       this.getUser();
     }
   }

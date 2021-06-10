@@ -99,7 +99,7 @@ export class ProfileCrudComponent implements OnInit {
       ],
       email: ['', [Validators.required, Validators.email]],
       password: [
-        'Salesianas1',
+        '',
         [
           Validators.required,
           Validators.pattern(/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S*$/),

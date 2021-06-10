@@ -82,4 +82,7 @@ export class MaterialService {
     return this._http.delete<IAsignaturas>(`${environment.base_url}/Asignaturas/${id}`)
   }
 
+  getCursoAsignatura(id: number) {
+    return this._http.get<ICurso[]>(`${environment.base_url}/Diarios/getEquipoDiario/${id}`)
+  }
 }
