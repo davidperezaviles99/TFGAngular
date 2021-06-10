@@ -2,7 +2,12 @@
 <div id="contenedor">
   <div id="equipo">
 <div *ngIf="equipos.length > 0">
-  <h3>Tareas de:</h3>
+  <div *ngIf="user.role != 'Alumno'">
+    <h3>Tareas de:</h3>
+  </div>
+  <div *ngIf="user.role === 'Alumno'">
+    <h3>Tus Tareas:</h3>
+  </div>  
   <ul  *ngFor="let equipo of equipos">
     <li>
       <a (click)="getDiarioID(equipo.id)" >{{equipo.id}} {{equipo.alumno.name}} {{equipo.alumno.lastname}}</a>
@@ -80,13 +85,13 @@
     <div class="accordion-item">
       <h2 class="accordion-header" id="panelsStayOpen-headingOne">
         <button (click)="openMessages()" class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-          Messages
+          Mensajes
         </button>
       </h2>
       <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
         <div class="accordion-body">
           <ng-container *ngIf="equipoMensajes.length == 0">
-            <p class="lead mt-3">no messages yet</p>
+            <p class="lead mt-3">No hay mensajes</p>
           </ng-container>
           <ng-container *ngIf="equipoMensajes.length > 0">
             <div class="mt-3 wrap">
